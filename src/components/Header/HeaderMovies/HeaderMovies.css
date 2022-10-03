@@ -1,0 +1,98 @@
+.headerm {
+  background-color: #fafafa;
+  width: 100%;
+}
+.headerm__content {
+  max-width: 1280px;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  padding: 0 70px;
+}
+
+@media (max-width: 768px) {
+  .headerm__content {
+    padding: 0 30px;
+  }
+}
+
+@media (max-width: 320px) {
+  .headerm__content {
+    padding: 0 14px;
+  }
+}
+
+.headerm__logo {
+  margin: 18px 0;
+  width: 38px;
+  height: 38px;
+}
+
+.movies {
+  display: flex;
+  justify-content: space-between;
+}
+.movies__list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  margin: 28px 364px 0 0;
+}
+
+.movies__navigate {
+  margin-right: 16px;
+}
+
+.movies__navigate:last-of-type {
+  margin-right: 0;
+}
+
+.movies__dif {
+  text-decoration: none;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 18px;
+  text-align: right;
+  color: #000000;
+  cursor: pointer;
+}
+
+.movies__dif_normal {
+    font-weight: 400; 
+}
+
+.movies__profile {
+  width: 100px;
+  height: 32px;
+  background-color: #fafafa;
+  box-shadow: 0px 3px 14px rgba(0, 0, 0, 0.08);
+  border-radius: 40px;
+  border: none;
+  margin-top: 21px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.movies__radius {
+  border-radius: 50px;
+  background-color: #f4f4f4;
+  width: 26px;
+  height: 26px;
+}
+
+.movies__name {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 12px;
+  color: #000000;
+}
+
+.movies__my {
+    margin-top: 7.5px;
+}

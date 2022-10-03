@@ -32,70 +32,11 @@
 }
 
 .app__page {
-  /*min-height: 100vh;*/
+  min-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-}
-.header {
-background-color: #DDDEE3;
-width: 100%;
-}
-.header__content {
-  max-width: 1200px;
-  display: flex;
-  justify-content: space-between;
-  margin: auto;
-}
-.header__logo {
-margin: 18px 0;
-}
-.menu{
-  
-}
-.menu__list {
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
-  padding: 0;
-  margin: 0;
-}
-
-.menu__routes {
-  margin-left: 30px;
-}
-
-.menu__routes:first-child {
-  margin-left: 0;
-}
-
-.menu__route {
-  cursor: pointer;
-  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 16px;
-}
-
-.menu__route_border_none{
-  border: none;
-  outline: none;
-  color: black;
-  background-color: #DDDEE3;
-  margin: 29px 0;
-}
-
-.menu__route_border_yes {
-  background-color: #3456F3;
-  color: #fff;
-  margin: 21px 0;
-  width: 76px;
-  height: 32px;
-  border-radius: 3px;
-  border: none;
 }

@@ -1,0 +1,183 @@
+.about {
+    max-width: 1280px;
+    padding: 110px 70px;
+    margin: 0 auto;
+  }
+  
+  @media (max-width: 768px) {
+    .about {
+      padding: 90px 50px;
+    }
+  }
+  
+  @media (max-width: 320px) {
+    .about {
+      padding: 70px 18px;
+    }
+  }
+  
+  .about__title {
+    margin: 0 0 23px;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 27px;
+  }
+  
+  @media (max-width: 768px) {
+    .about__title {
+      margin-bottom: 23px;
+      font-size: 22px;
+      line-height: 27px;
+    }
+  }
+  
+  @media (max-width: 320px) {
+    .about__title {
+      font-size: 18px;
+      line-height: 22px;
+      margin-bottom: 28px;
+    }
+  }
+  
+  .about__description {
+    border-top: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    padding: 70px 0 110px;
+  }
+  
+  @media (max-width: 768px) {
+    .about__description {
+      padding: 70px 0 93px;
+    }
+  }
+  
+  @media (max-width: 320px) {
+    .about__description {
+      padding: 60px 0;
+      flex-direction: column;
+    }
+  }
+  
+  .about__subtitle {
+    margin: 0 0 26px;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+  }
+  
+  @media (max-width: 768px) {
+    .about__subtitle {
+      margin: 0 0 22px;
+    }
+  }
+  
+  @media (max-width: 320px) {
+    .about__subtitle {
+      margin: 0 0 16px;
+      font-size: 18px;
+      line-height: 22px;
+    }
+  }
+  
+  .about__plan {
+    margin: 0;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    max-width: 550px;
+  }
+  
+  @media (max-width: 768px) {
+    .about__plan {
+      font-size: 12px;
+      line-height: 18px;
+    }
+  }
+  
+  @media (max-width: 320px) {
+    .about__plan {
+      font-size: 11px;
+      line-height: 16px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .about__fiveweeks {
+      margin-right: 30px;
+    }
+  
+    .about__fiveweeks:last-child {
+      margin-right: 0;
+    }
+  }
+  
+  @media (max-width: 320px) {
+    .about__fiveweeks {
+      margin-bottom: 56px;
+    }
+  
+    .about__fiveweeks:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  .about__calendar {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 36px 36px;
+    text-align: center;
+  }
+  
+  @media (max-width: 320px) {
+    .about__calendar {
+      grid-template-columns: 2fr 4fr;
+    }
+  }
+  
+  .about__calendar-week {
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .about__calendar-week_blue {
+    background-color: #3456f3;
+    color: #fff;
+  }
+  
+  .about__one {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    margin: 0;
+  }
+  
+  @media (max-width: 320px) {
+    .about__one {
+      font-size: 11px;
+      line-height: 13px;
+    }
+  }
+  
+  .about__calendar-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .about__backend {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #a0a0a0;
+  }
+  
+  @media (max-width: 320px) {
+    .about__backend {
+      font-size: 11px;
+      line-height: 13px;
+    }
+  }

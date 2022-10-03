@@ -1,26 +1,45 @@
-import logo from '../../images/logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
+
+import "./App.css";
+import Footer from "../Footer/Footer";
+import Header from "../Header/Header";
+import Main from "../Main/Main";
+import HeaderMovies from "../Header/HeaderMovies/HeaderMovies";
+import Movies from "../Movies/Movies"
 
 function App() {
+  const navigate = useNavigate();
+
+  const tokenCheck = () => {
+    navigate("/movies-explorer-frontend");
+  };
+
   return (
-    <div className='app'>
-        <div className="app__page page">
-      <header className="page__header header">
-        <div className="header__content"> 
-        <img src={logo} className="header__logo" alt="logo" />
-        <nav className="header__menu menu">
-          <ul className="menu__list">
-            <li className="menu__routes">
-              <button className="menu__route menu__route_border_none" type="button" title="Регистрация">Регистрация</button>
-              </li>
-              <li className="menu__routes">
-                <button className="menu__route menu__route_border_yes" type="button" title="Войти">Войти</button>
-            </li>
-          </ul>
-        </nav>
-        </div>
-      </header>
-    </div>
+    <div className="app">
+      <div className="app__page page">
+        <Routes>
+          <Route
+            path="/movies-explorer-frontend"
+            element={
+              <>
+                <Header></Header>
+                <Main></Main>
+              </>
+            }
+          />
+          <Route
+            path="/movies"
+            element={
+              <>
+                <HeaderMovies></HeaderMovies>
+                <Movies></Movies>
+              </>
+            }
+          />
+        </Routes>
+        <Footer></Footer>
+      </div>
     </div>
   );
 }

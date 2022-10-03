@@ -1,0 +1,21 @@
+.preloader {
+  max-width: 1280px;
+  padding: 50px 0 80px;
+  display: flex;
+}
+
+.preloader__else {
+  margin: 0 auto;
+  width: 320px;
+  height: 36px;
+  border-radius: 6px;
+  background-color: #f4f4f4;
+  border: none;
+  outline: none;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  color: #000000;
+}

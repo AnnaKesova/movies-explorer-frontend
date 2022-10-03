@@ -1,0 +1,147 @@
+.technology {
+  background-color: #f5f5f5;
+}
+
+@media (max-width: 320px) {
+  .technology {
+    background-color: #fff;
+  }
+}
+
+.technology__project {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 100px 70px;
+}
+
+@media (max-width: 768px) {
+  .technology__project {
+    padding: 90px 50px;
+  }
+}
+
+@media (max-width: 320px) {
+  .technology__project {
+    padding: 70px 18px;
+  }
+}
+
+.technology__title {
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  margin: 0 0 23px;
+}
+
+@media (max-width: 320px) {
+  .technology__title {
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 28px;
+  }
+}
+
+.technology__about {
+  border-top: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.technology__subtitle {
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  letter-spacing: -0.04em;
+  margin: 90px auto 26px;
+}
+
+@media (max-width: 768px) {
+  .technology__subtitle {
+    margin: 80px auto 22px;
+  }
+}
+
+@media (max-width: 320px) {
+  .technology__subtitle {
+    font-size: 30px;
+    line-height: 36px;
+    margin: 60px auto 24px;
+  }
+}
+
+.technology__text {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  max-width: 460px;
+  margin: 0 auto 100px;
+}
+
+@media (max-width: 768px) {
+  .technology__text {
+    font-size: 12px;
+    line-height: 18px;
+    margin-bottom: 83px;
+  }
+}
+
+@media (max-width: 320px) {
+  .technology__text {
+    font-size: 11px;
+    line-height: 16px;
+    margin-bottom: 50px;
+  }
+}
+
+.technology__skills {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, 90px);
+  padding: 0;
+  place-content: center;
+  row-gap: 10px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .technology__skills {
+    grid-template-columns: repeat(auto-fit, 84px);
+  }
+}
+
+@media (max-width: 320px) {
+  .technology__skills {
+    width: 94%;
+  }
+}
+
+.technology__skill {
+  background-color: #e8e8e8;
+  border-radius: 10px;
+  min-height: 60px;
+  min-width: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.technology__name {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  letter-spacing: -0.04em;
+}
+
+@media (max-width: 768px) {
+  .technology__name {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
