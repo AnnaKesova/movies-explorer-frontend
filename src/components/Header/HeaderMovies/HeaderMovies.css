@@ -31,6 +31,8 @@
 .movies {
   display: flex;
   justify-content: space-between;
+  width: 622px;
+  margin-left: 10px;
 }
 
 @media screen and (max-width: 768px) {
@@ -43,7 +45,7 @@
   list-style: none;
   padding: 0;
   display: flex;
-  margin: 0 364px 0 0;
+  margin: 0;
   align-items: center;
 }
 
@@ -53,14 +55,6 @@
 
 .movies__navigate_visible {
   display: none;
-}
-
-.movies__navigate {
-  margin-right: 16px;
-}
-
-.movies__navigate:last-of-type {
-  margin-right: 0;
 }
 
 .movies__dif {
@@ -77,6 +71,7 @@
 
 .movies__dif_normal {
   font-weight: 400;
+  margin-left: 16px;
 }
 
 .movies__profile {
@@ -96,6 +91,9 @@
 .movies__radius {
   border-radius: 50px;
   background-color: #f4f4f4;
+  background-image: url(../../../images/people.svg);
+  background-repeat: no-repeat;
+  background-position: center;
   width: 26px;
   height: 26px;
 }

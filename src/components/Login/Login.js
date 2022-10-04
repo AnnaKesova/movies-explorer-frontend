@@ -13,12 +13,16 @@ function Login() {
               className="form-registrer__input form__input"
               required=""
               placeholder="pochta@yandex.ru"
+              minlength="2"
+              maxlength="24"
             ></input>
             <span className="form-registrer__name">Пароль</span>
             <input
               className="form__input form-registrer__input"
               required=""
               placeholder=""
+              minlength="2"
+              maxlength="24"
             ></input>
           </div>
           <button type="button" className="form-registrer__button">

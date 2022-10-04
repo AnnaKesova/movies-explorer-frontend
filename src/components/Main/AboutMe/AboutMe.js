@@ -3,7 +3,6 @@ import "./AboutMe.css";
 import mypfoto from "../../../images/myphoto.jpg";
 import arrow from "../../../images/стрелка.svg";
 
-
 function AboutMe() {
   return (
     <section className="content__aboutMe aboutMe">
@@ -41,9 +40,9 @@ function AboutMe() {
               target="blank"
               href="https://annakesova.github.io/russian-travel/"
             >
-              Статичный сайт
+              <h2 className="aboutMe__name-site">Статичный сайт</h2>
+              <img src={arrow} className="aboutMe__arrow" alt="arrow"></img>
             </a>
-            <img src={arrow} className="aboutMe__arrow" alt="arrow"></img>
           </li>
           <li className="aboutMe__link">
             <a
@@ -51,9 +50,9 @@ function AboutMe() {
               target="blank"
               href="https://annakesova.github.io/mesto/"
             >
-              Адаптивный сайт
+              <h2 className="aboutMe__name-site">Адаптивный сайт</h2>
+              <img src={arrow} className="aboutMe__arrow" alt="arrow"></img>
             </a>
-            <img src={arrow} className="aboutMe__arrow" alt="arrow"></img>
           </li>
           <li className="aboutMe__link">
             <a
@@ -61,9 +60,9 @@ function AboutMe() {
               target="blank"
               href="https://anna.mesto.students.nomoredomains.sbs/"
             >
-              Одностраничное приложение
+              <h2 className="aboutMe__name-site">Одностраничное приложение</h2>
+              <img src={arrow} className="aboutMe__arrow" alt="arrow"></img>
             </a>
-            <img src={arrow} className="aboutMe__arrow" alt="arrow"></img>
           </li>
         </ul>
       </div>

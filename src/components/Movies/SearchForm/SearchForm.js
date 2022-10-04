@@ -18,7 +18,7 @@ function SearchForm() {
       </form>
       <div className="searhForm__radio filterCheckbox">
         <label className="filterCheckbox__radioButton">
-            <input className="filterCheckbox__input" checked={isCheckbox} type="checkbox"
+            <input className="filterCheckbox__input" required="" checked={isCheckbox} type="checkbox"
         onChange={onCheckboxToggle}>
             </input>
             <span className="filterCheckbox__slider"></span> </label>

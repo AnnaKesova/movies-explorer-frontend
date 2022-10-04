@@ -10,8 +10,6 @@ function Header() {
           <img src={logo} className="header__logo" alt="logo" />
         </Link>
         <nav className="header__menu menu">
-          <ul className="menu__list">
-            <li className="menu__routes">
               <Link
                 className="menu__route menu__route_border_none"
                 to="/signup"
@@ -19,8 +17,6 @@ function Header() {
               >
                 Регистрация
               </Link>
-            </li>
-            <li className="menu__routes">
               <Link
                 className="menu__route menu__route_border_yes"
                 to="/signin"
@@ -28,8 +24,6 @@ function Header() {
               >
                 Войти
               </Link>
-            </li>
-          </ul>
         </nav>
       </div>
     </header>

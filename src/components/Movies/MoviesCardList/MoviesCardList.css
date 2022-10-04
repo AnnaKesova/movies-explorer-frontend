@@ -3,7 +3,7 @@
   padding: 80px 70px 30px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .moviesCardList {
     padding-left: 30px;
     padding-right: 30px;
@@ -23,12 +23,13 @@
   gap: 24px;
   row-gap: 30px;
   grid-template-columns: repeat(auto-fit, 363px);
+  justify-content: center;
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   .moviesCardList__list {
     gap: 30px;
     row-gap: 36px;
@@ -50,7 +51,7 @@
   
 }
 
-@media (max-width: 768px) {
+@media (max-width: 450px) {
   .moviesCardList__poster {
     width: 300px;
   }
@@ -70,7 +71,7 @@
 
 .moviesCardList__name {
   margin: 14px 0 9px;
-  font-family: "Inter";
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 15px;
@@ -79,7 +80,7 @@
 }
 
 .moviesCardList__time {
-  font-family: "Inter";
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 11px;

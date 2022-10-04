@@ -8,12 +8,20 @@ function Profile() {
         <h3 className="profile__name">Привет, Виталий!</h3>
         <form className="profile__form form">
           <span className="form__name form__name_margin">Василий</span>
-          <input className="form__input" required="" placeholder="Имя"></input>
+          <input
+            className="form__input"
+            required=""
+            placeholder="Имя"
+            minlength="2"
+            maxlength="24"
+          ></input>
           <span className="form__name">pochta@yandex.ru</span>
           <input
             className="form__input"
             required=""
             placeholder="E-mail"
+            minlength="2"
+            maxlength="24"
           ></input>
         </form>
         <div className="profile__instrument">
