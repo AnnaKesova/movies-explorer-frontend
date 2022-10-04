@@ -1,6 +1,6 @@
-import "./About.css";
+import "./AboutProject.css";
 
-function About() {
+function AboutProject() {
   return (
     <section className="content__about about">
       <div className="about__project">
@@ -44,4 +44,4 @@ function About() {
   );
 }
 
-export default About;
+export default AboutProject;

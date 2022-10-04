@@ -1,19 +1,16 @@
 import "./Main.css";
-import About from "./About/About";
-import Heading from "./Heading/Heading";
-import Technology from "./Technology/Technology"
-import Student from "./Student/Student"
-
+import AboutProject from "./AboutProject/AboutProject";
+import Promo from "./Promo/Promo";
+import Technology from "./Technology/Technology";
+import AboutMe from "./AboutMe/AboutMe";
 
 function Main() {
   return (
     <main className="page__content content">
-      <Heading></Heading>
-      <About></About>
+      <Promo></Promo>
+      <AboutProject></AboutProject>
       <Technology></Technology>
-      <Student></Student>
-     
-      
+      <AboutMe></AboutMe>
     </main>
   );
 }

@@ -32,11 +32,27 @@
   display: flex;
   justify-content: space-between;
 }
+
+@media screen and (max-width: 768px) {
+  .movies {
+    display: none;
+  }
+}
+
 .movies__list {
   list-style: none;
   padding: 0;
   display: flex;
-  margin: 28px 364px 0 0;
+  margin: 0 364px 0 0;
+  align-items: center;
+}
+
+.headerm__burger {
+  display: none;
+}
+
+.movies__navigate_visible {
+  display: none;
 }
 
 .movies__navigate {
@@ -49,7 +65,7 @@
 
 .movies__dif {
   text-decoration: none;
-  font-family: "Inter";
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 13px;
@@ -60,7 +76,7 @@
 }
 
 .movies__dif_normal {
-    font-weight: 400; 
+  font-weight: 400;
 }
 
 .movies__profile {
@@ -69,12 +85,12 @@
   background-color: #fafafa;
   box-shadow: 0px 3px 14px rgba(0, 0, 0, 0.08);
   border-radius: 40px;
-  border: none;
   margin-top: 21px;
   cursor: pointer;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  text-decoration: none;
 }
 
 .movies__radius {
@@ -85,7 +101,7 @@
 }
 
 .movies__name {
-  font-family: "Inter";
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 13px;
@@ -94,5 +110,32 @@
 }
 
 .movies__my {
-    margin-top: 7.5px;
+  margin-top: 7.5px;
+}
+
+.movies__button-open {
+  display: none;
+  border: none;
+  padding: 0;
+  width: 44px;
+  height: 44px;
+  font: inherit;
+  color: inherit;
+  background-image: url(../../../images/burger-main.svg);
+  background-color: transparent;
+  margin-top: 15px;
+}
+
+@media screen and (max-width: 768px) {
+  .movies__button-open {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .movies__button-open {
+    margin-right: 10px;
+    width: 30px;
+    height: 43px;
+  }
 }

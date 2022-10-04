@@ -6,29 +6,28 @@ function Header() {
   return (
     <header className="page__header header">
       <div className="header__content">
-        <Link class="header__link" href="/movies-explorer-frontend">
+        <Link class="header__link" to="/">
           <img src={logo} className="header__logo" alt="logo" />
         </Link>
-
         <nav className="header__menu menu">
           <ul className="menu__list">
             <li className="menu__routes">
-              <button
+              <Link
                 className="menu__route menu__route_border_none"
-                type="button"
+                to="/signup"
                 title="Регистрация"
               >
                 Регистрация
-              </button>
+              </Link>
             </li>
             <li className="menu__routes">
-              <button
+              <Link
                 className="menu__route menu__route_border_yes"
-                type="button"
+                to="/signin"
                 title="Войти"
               >
                 Войти
-              </button>
+              </Link>
             </li>
           </ul>
         </nav>

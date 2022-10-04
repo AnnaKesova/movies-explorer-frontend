@@ -1,8 +1,8 @@
-.heading {
+.promo {
     background-color: #dddee3;
   }
   
-  .heading__description {
+  .promo__description {
     max-width: 1280px;
     display: flex;
     justify-content: space-between;
@@ -11,7 +11,7 @@
   }
   
   @media (max-width: 768px) {
-    .heading__description {
+    .promo__description {
       flex-direction: column-reverse;
       align-items: center;
       padding: 140px 44px 76px;
@@ -19,20 +19,20 @@
   }
   
   @media (max-width: 320px) {
-    .heading__description {
+    .promo__description {
       padding: 70px 10px 30px;
     }
   }
   
   @media (max-width: 768px) {
-    .heading__name {
+    .promo__name {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
   }
   
-  .heading__title {
+  .promo__title {
     font-weight: 400;
     font-size: 50px;
     line-height: 58px;
@@ -41,7 +41,7 @@
   }
   
   @media (max-width: 768px) {
-    .heading__title {
+    .promo__title {
       font-size: 40px;
       line-height: 50px;
       margin-bottom: 22px;
@@ -51,7 +51,7 @@
   }
   
   @media (max-width: 320px) {
-    .heading__title {
+    .promo__title {
       font-size: 30px;
       line-height: 38px;
       letter-spacing: -0.04em;
@@ -61,7 +61,7 @@
     }
   }
   
-  .heading__subtitle {
+  .promo__subtitle {
     font-weight: 400;
     font-size: 13px;
     line-height: 16px;
@@ -72,7 +72,7 @@
   }
   
   @media (max-width: 768px) {
-    .heading__subtitle {
+    .promo__subtitle {
       margin: 0 auto 92px;
       max-width: 260px;
       text-align: center;
@@ -80,14 +80,14 @@
   }
   
   @media (max-width: 320px) {
-    .heading__subtitle {
+    .promo__subtitle {
       margin-bottom: 80px;
       max-width: 260px;
       text-align: center;
     }
   }
   
-  .heading__else {
+  .promo__else {
     opacity: 0.6;
     border: 1px solid #000000;
     border-radius: 3px;
@@ -100,24 +100,24 @@
   }
   
   @media (max-width: 320px) {
-    .heading__else {
+    .promo__else {
       margin-bottom: 0;
     }
   }
   
-  .heading__logo {
+  .promo__logo {
     width: 310px;
     height: 304px;
   }
   
   @media (max-width: 768px) {
-    .heading__logo {
+    .promo__logo {
       margin-bottom: 48px;
     }
   }
   
   @media (max-width: 320px) {
-    .heading__logo {
+    .promo__logo {
       width: 210px;
       height: 206px;
       margin-bottom: 44px;

@@ -1,0 +1,27 @@
+.header-register {
+  background-color: #fff;
+}
+
+.header__content-register {
+  max-width: 396px;
+  padding: 48px 0 40px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 450px) {
+  .header__content-register{
+    padding: 0;
+  }
+}
+
+.header__logo-register {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+@media (max-width: 450px) {
+  .header__logo-register {
+    margin: 56px 141px 50px;
+  }
+}
+

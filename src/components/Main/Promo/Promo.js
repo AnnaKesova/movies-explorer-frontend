@@ -1,30 +1,30 @@
 import headingLogo from "../../../images/text__COLOR_landing-logo.svg";
-import "./Heading.css";
+import "./Promo.css";
 
-function Heading () {
+function Promo () {
     return (
-        <section className="content__heading heading">
-        <div className="heading__description">
-          <div className="heading__name">
-            <h1 className="heading__title">
+        <section className="content__promo promo">
+        <div className="promo__description">
+          <div className="promo__name">
+            <h1 className="promo__title">
               Учебный проект студента факультета Веб-разработки.
             </h1>
-            <p className="heading__subtitle">
+            <p className="promo__subtitle">
               Листайте ниже, чтобы узнать больше про этот проект и его
               создателя.
             </p>
             <button
-              className="heading__else"
+              className="promo__else"
               type="button"
               title="Узнать больше"
             >
               Узнать больше
             </button>
           </div>
-          <img src={headingLogo} className="heading__logo" alt="headingLogo" />
+          <img src={headingLogo} className="promo__logo" alt="promoLogo" />
         </div>
       </section>
     )
 }
 
-export default Heading;
+export default Promo;

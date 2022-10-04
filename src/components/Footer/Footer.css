@@ -82,15 +82,19 @@
   margin: 0;
 }
 
+.footer__link:last-of-type {
+  margin-left: 20px;
+}
+
 @media (max-width: 320px) {
   .footer__links {
     flex-direction: column;
     margin: 0 0 30px;
   }
-}
 
-.footer__link:last-of-type {
-  margin-left: 20px;
+  .footer__link:last-of-type {
+    margin: 0 auto;
+  }
 }
 
 .footer__site {
