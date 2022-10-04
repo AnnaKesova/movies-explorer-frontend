@@ -9,7 +9,8 @@ import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
 import HeaderRegister from "../Header/HeaderRegister/HeaderRegister";
 import Register from "../Register/Register";
-import Login from "../Login/Login"
+import Login from "../Login/Login";
+import NotFound from "../404/404"
 
 function App() {
   return (
@@ -70,6 +71,14 @@ function App() {
               <>
                 <HeaderRegister></HeaderRegister>
                 <Login></Login>
+              </>
+            }
+          />
+          <Route
+            path="/404"
+            element={
+              <>
+              <NotFound></NotFound>
               </>
             }
           />

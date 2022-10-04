@@ -1,0 +1,83 @@
+.notFound {
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 246px;
+  padding-bottom: 60px;
+}
+
+@media (max-width: 450px) {
+  .notFound {
+    max-width: 300px;
+    padding-top: 329px;
+    padding-bottom: 30px;
+  }
+}
+
+.notFound__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 184px;
+}
+
+@media (max-width: 450px) {
+  .notFound__wrapper {
+    margin-bottom: 284px;
+  }
+}
+
+.notFound__numder {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 140px;
+  line-height: 169px;
+  text-align: center;
+  margin: 0;
+}
+
+@media (max-width: 450px) {
+  .notFound__numder {
+    font-size: 80px;
+    line-height: 97px;
+    margin-bottom: 10px;
+  }
+}
+
+.notFound__page {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  margin: 0;
+}
+
+@media (max-width: 450px) {
+    .notFound__page {
+      font-size: 12px;
+      line-height: 15px;
+    }
+  }
+
+.notFound__link {
+  align-items: center;
+  text-decoration: none;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #3456f3;
+}
+
+@media (max-width: 450px) {
+    .notFound__link {
+      font-size: 12px;
+      line-height: 15px;
+    }
+  }
