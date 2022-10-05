@@ -107,6 +107,7 @@
   line-height: 17px;
   text-align: center;
   color: #ffffff;
+  cursor: pointer;
 }
 
 @media (max-width: 450px) {
@@ -115,6 +116,12 @@
     font-size: 12px;
     line-height: 15px;
   }
+}
+
+.form-registrer__button:hover {
+  background-color: #3456f3;
+  opacity: 0.8;
+  border-radius: 3px;
 }
 
 .registrer__question {
@@ -153,4 +160,9 @@
     font-size: 12px;
     line-height: 15px;
   }
+}
+
+.profile__accaunt_color:hover {
+  color: #3456f3;
+  opacity: 0.7;
 }

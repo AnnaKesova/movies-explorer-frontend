@@ -11,7 +11,7 @@ function Register() {
             <span className="form-registrer__name">Имя</span>
             <input
               className="form__input form-registrer__input"
-              required=""
+              required
               placeholder="Василий"
               minlength="2"
               maxlength="24"
@@ -19,7 +19,7 @@ function Register() {
             <span className="form-registrer__name">E-mail</span>
             <input
               className="form-registrer__input form__input"
-              required=""
+              required
               placeholder="pochta@yandex.ru"
               minlength="2"
               maxlength="24"
@@ -27,7 +27,7 @@ function Register() {
             <span className="form-registrer__name">Пароль</span>
             <input
               className="form__input form-registrer__input"
-              required=""
+              required
               placeholder="••••••••••••••"
               minlength="2"
               maxlength="24"
