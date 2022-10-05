@@ -31,7 +31,7 @@
 .movies {
   display: flex;
   justify-content: space-between;
-  width: 622px;
+  width: 60%;
   margin-left: 10px;
 }
 
@@ -61,16 +61,18 @@
   text-decoration: none;
   font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 13px;
   line-height: 18px;
   text-align: right;
   color: #000000;
   cursor: pointer;
 }
+.movies__dif:hover {
+  font-weight: 500;
+}
 
 .movies__dif_normal {
-  font-weight: 400;
   margin-left: 16px;
 }
 

@@ -107,6 +107,10 @@
   cursor: pointer;
 }
 
+.footer__site:hover {
+  opacity: 0.7;
+}
+
 @media (max-width: 320px) {
   .footer__site {
     font-size: 12px;

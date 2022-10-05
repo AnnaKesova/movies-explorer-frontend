@@ -161,6 +161,10 @@
   }
 }
 
+.aboutMe__git:hover {
+  opacity: 0.7;
+}
+
 .aboutMe__portfolio {
   font-weight: 400;
   font-size: 18px;
@@ -223,6 +227,10 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+}
+
+.aboutMe__site:hover {
+  opacity: 0.7;
 }
 
 .aboutMe__name-site {
