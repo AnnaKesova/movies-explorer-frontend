@@ -1,0 +1,129 @@
+.promo {
+  background-color: #dddee3;
+}
+
+.promo__description {
+  max-width: 1280px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 75px 70px 78px;
+}
+
+@media (max-width: 768px) {
+  .promo__description {
+    flex-direction: column-reverse;
+    align-items: center;
+    padding: 140px 44px 76px;
+  }
+}
+
+@media (max-width: 320px) {
+  .promo__description {
+    padding: 70px 10px 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .promo__name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.promo__title {
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  margin: 0 0 36px;
+  max-width: 640px;
+}
+
+@media (max-width: 768px) {
+  .promo__title {
+    font-size: 40px;
+    line-height: 50px;
+    margin-bottom: 22px;
+    max-width: 680px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 320px) {
+  .promo__title {
+    font-size: 30px;
+    line-height: 38px;
+    letter-spacing: -0.04em;
+    margin-bottom: 24px;
+    max-width: 300px;
+    text-align: center;
+  }
+}
+
+.promo__subtitle {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  margin: 0 0 146px;
+  mix-blend-mode: normal;
+  opacity: 0.5;
+  max-width: 310px;
+}
+
+@media (max-width: 768px) {
+  .promo__subtitle {
+    margin: 0 auto 92px;
+    max-width: 260px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 320px) {
+  .promo__subtitle {
+    margin-bottom: 80px;
+    max-width: 260px;
+    text-align: center;
+  }
+}
+
+.promo__else {
+  opacity: 0.6;
+  border: 1px solid #000000;
+  border-radius: 3px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  width: 129px;
+  height: 36px;
+  cursor: pointer;
+}
+
+@media (max-width: 320px) {
+  .promo__else {
+    margin-bottom: 0;
+  }
+}
+
+.promo__else:hover {
+  opacity: 0.7;
+}
+
+.promo__logo {
+  width: 310px;
+  height: 304px;
+}
+
+@media (max-width: 768px) {
+  .promo__logo {
+    margin-bottom: 48px;
+  }
+}
+
+@media (max-width: 320px) {
+  .promo__logo {
+    width: 210px;
+    height: 206px;
+    margin-bottom: 44px;
+  }
+}

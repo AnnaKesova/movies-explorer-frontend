@@ -1,0 +1,141 @@
+.headerm {
+  background-color: #fafafa;
+  width: 100%;
+}
+.headerm__content {
+  max-width: 1280px;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  padding: 0 70px;
+}
+
+@media (max-width: 768px) {
+  .headerm__content {
+    padding: 0 30px;
+  }
+}
+
+@media (max-width: 320px) {
+  .headerm__content {
+    padding: 0 14px;
+  }
+}
+
+.headerm__logo {
+  margin: 18px 0;
+  width: 38px;
+  height: 38px;
+}
+
+.movies {
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  margin-left: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .movies {
+    display: none;
+  }
+}
+
+.movies__list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  margin: 0;
+  align-items: center;
+}
+
+.headerm__burger {
+  display: none;
+}
+
+.movies__navigate_visible {
+  display: none;
+}
+
+.movies__dif {
+  text-decoration: none;
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  text-align: right;
+  color: #000000;
+  cursor: pointer;
+}
+.movies__dif:hover {
+  font-weight: 500;
+}
+
+.movies__dif_normal {
+  margin-left: 16px;
+}
+
+.movies__profile {
+  width: 100px;
+  height: 32px;
+  background-color: #fafafa;
+  box-shadow: 0px 3px 14px rgba(0, 0, 0, 0.08);
+  border-radius: 40px;
+  margin-top: 21px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-decoration: none;
+}
+
+.movies__radius {
+  border-radius: 50px;
+  background-color: #f4f4f4;
+  background-image: url(../../../images/people.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 26px;
+  height: 26px;
+}
+
+.movies__name {
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 12px;
+  color: #000000;
+}
+
+.movies__my {
+  margin-top: 7.5px;
+}
+
+.movies__button-open {
+  display: none;
+  border: none;
+  padding: 0;
+  width: 44px;
+  height: 44px;
+  font: inherit;
+  color: inherit;
+  background-image: url(../../../images/burger-main.svg);
+  background-color: transparent;
+  margin-top: 15px;
+}
+
+@media screen and (max-width: 768px) {
+  .movies__button-open {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .movies__button-open {
+    margin-right: 10px;
+    width: 30px;
+    height: 43px;
+  }
+}
