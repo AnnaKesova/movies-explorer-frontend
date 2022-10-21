@@ -2,9 +2,8 @@ import { useState } from "react";
 import "./SearchForm.css";
 
 function SearchForm() {
-    const [isCheckbox, setCheckbox] = useState(true);
-    const onCheckboxToggle = () => setCheckbox(!isCheckbox);
-
+  const [isCheckbox, setCheckbox] = useState(true);
+  const onCheckboxToggle = () => setCheckbox(!isCheckbox);
 
   return (
     <section className=" content__searchForm searchForm">
@@ -18,10 +17,15 @@ function SearchForm() {
       </form>
       <div className="searhForm__radio filterCheckbox">
         <label className="filterCheckbox__radioButton">
-            <input className="filterCheckbox__input" required checked={isCheckbox} type="checkbox"
-        onChange={onCheckboxToggle}>
-            </input>
-            <span className="filterCheckbox__slider"></span> </label>
+          <input
+            className="filterCheckbox__input"
+            required
+            checked={isCheckbox}
+            type="checkbox"
+            onChange={onCheckboxToggle}
+          ></input>
+          <span className="filterCheckbox__slider"></span>{" "}
+        </label>
         <p className="filterCheckbox__name">Короткометражки</p>
       </div>
     </section>

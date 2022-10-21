@@ -1,43 +1,72 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../Register/Register.css";
 
-function Register() {
+function Register({ onRegister }) {
+  const [data, setData] = useState({ name: "", email: "", password: "" });
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onRegister(data);
+  }
+
   return (
     <section className="content__registrer registrer">
       <div className="registrer__description">
         <h3 className="registrer__name">Добро пожаловать!</h3>
-        <form className="registrer__form form-registrer">
+        <form
+          className="registrer__form form-registrer"
+          onSubmit={handleSubmit}
+          noValidate
+        >
           <div className=" form-register__wrapper">
             <span className="form-registrer__name">Имя</span>
             <input
               className="form__input form-registrer__input"
               required
-              placeholder="Василий"
-              minlength="2"
-              maxlength="24"
+              placeholder="Имя"
+              minLength="2"
+              maxLength="30"
+              name="name"
+              value={data.name}
+              onChange={handleChange}
             ></input>
             <span className="form-registrer__name">E-mail</span>
             <input
               className="form-registrer__input form__input"
+              type="text"
+              name="email"
+              placeholder="Email"
+              value={data.email}
+              minLength="2"
+              maxLength="30"
               required
-              placeholder="pochta@yandex.ru"
-              minlength="2"
-              maxlength="24"
+              id="email"
+              onChange={handleChange}
             ></input>
             <span className="form-registrer__name">Пароль</span>
             <input
               className="form__input form-registrer__input"
+              type="text"
+              name="password"
+              placeholder="Пароль"
+              value={data.password}
+              minLength="2"
+              maxLength="200"
               required
-              placeholder="••••••••••••••"
-              minlength="2"
-              maxlength="24"
+              id="password"
+              onChange={handleChange}
             ></input>
             <span className="form-registrer__name form-registrer__name_color">
               Что-то пошло не так
             </span>
           </div>
 
-          <button type="button" className="form-registrer__button">
+          <button type="submit" className="form-registrer__button">
             Зарегистрироваться
           </button>
         </form>

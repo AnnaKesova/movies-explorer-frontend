@@ -6,7 +6,7 @@ function Header() {
   return (
     <header className="page__header header">
       <div className="header__content">
-        <Link class="header__link" to="/">
+        <Link className="header__link" to="/">
           <img src={logo} className="header__logo" alt="logo" />
         </Link>
         <nav className="header__menu menu">

@@ -73,6 +73,7 @@
   padding-left: 15px;
   box-sizing: border-box;
   margin-top: 5px;
+  border: none;
 }
 
 .form-registrer__input:last-of-type {
