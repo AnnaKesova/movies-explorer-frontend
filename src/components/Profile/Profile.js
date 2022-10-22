@@ -5,28 +5,26 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useFormWithValidation } from "../../utils/validate";
 import apiMain from "../../utils/MainApi";
 
-function Profile(props) {
+function Profile() {
   const currentUser = React.useContext(CurrentUserContext);
-  const { values, handleChange, errors, isValid, resetForm, setValues } =
+  const { values, handleChange, errors, isValid, setValues } =
     useFormWithValidation();
 
-  const [classesListEditProfile, setClassesListEditProfile] = React.useState(
+  const [classesListEditProfile, setClassesListEditProfile] = useState(
     "form__instrument_visible"
   );
-  const [isFormDisabled, setIsFormDisabled] = React.useState(true);
-  const [classesListSubmitProfile, setClassesListSubmitProfile] =
-    React.useState("");
-  const [editProfileStatus, setEditProfileStatus] = React.useState("");
-  const [editProfileError, setEditProfileError] = React.useState("");
-  const [isSaveEnabled, setIsSaveEnabled] = React.useState(false);
-  const [classesListFinilProfile, setclassesListFinilProfile] =
-    React.useState("");
+  const [isFormDisabled, setIsFormDisabled] = useState(true);
+  const [classesListSubmitProfile, setClassesListSubmitProfile] = useState("");
+  const [editProfileStatus, setEditProfileStatus] = useState("");
+  const [editProfileError, setEditProfileError] = useState("");
+  const [isSaveEnabled, setIsSaveEnabled] = useState(false);
+  const [classesListFinilProfile, setclassesListFinilProfile] = useState("");
 
   const submitButtonClass = !isSaveEnabled
     ? "form__profile-change form__profile-change_inactive"
     : "form__profile-change";
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (
       isValid &&
       (values.name !== currentUser.name || values.email !== currentUser.email)
@@ -35,7 +33,7 @@ function Profile(props) {
     else setIsSaveEnabled(false);
   }, [values, isValid, currentUser.email, currentUser.name]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setValues({
       name: currentUser.name,
       email: currentUser.email,

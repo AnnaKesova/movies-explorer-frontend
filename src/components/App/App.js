@@ -27,6 +27,10 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isEmail, setIsEmail] = useState("");
 
+  //ошибки логина и регистрации
+  const [loginError, setLoginError] = useState("");
+  const [registerError, setRegisterError] = useState("");
+
   // хранилище, проверка токена
 
   useEffect(() => {
@@ -56,7 +60,14 @@ function App() {
         navigate("/signin");
       })
       .catch((err) => {
-        console.log(err);
+        if (err === "Ошибка: 409") {
+          setRegisterError("Пользователь с таким email уже существует");
+        }
+        if (err === "Ошибка: 500") {
+          setRegisterError("Ошибка сервера");
+        } else {
+          setRegisterError("При регистрации пользователя произошла ошибка");
+        }
       });
   }
 
@@ -70,8 +81,16 @@ function App() {
         navigate("/movies");
       })
       .catch((err) => {
-        console.log(err);
-      });
+        if (err === 'Ошибка: 401') {
+          setLoginError('Неправильный логин или пароль');
+        }
+        if (err === 'Ошибка: 500') {
+          setLoginError('Ошибка сервера');
+        }
+        else {
+          setLoginError('При авторизации пользователя произошла ошибка');
+        }
+      })
   }
 
   function removeToken() {
@@ -154,7 +173,10 @@ function App() {
               element={
                 <>
                   <HeaderRegister></HeaderRegister>
-                  <Register onRegister={handleRegister}></Register>
+                  <Register
+                    onRegister={handleRegister}
+                    registerError={registerError}
+                  ></Register>
                 </>
               }
             />
@@ -163,7 +185,10 @@ function App() {
               element={
                 <>
                   <HeaderRegister></HeaderRegister>
-                  <Login onLogin={handleLogin}></Login>
+                  <Login
+                    onLogin={handleLogin}
+                    loginError={loginError}
+                  ></Login>
                 </>
               }
             />

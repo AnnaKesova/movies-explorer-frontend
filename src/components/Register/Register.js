@@ -1,17 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "../Register/Register.css";
+import { useFormWithValidation } from "../../utils/validate";
 
-function Register({ onRegister }) {
-  const [data, setData] = useState({ name: "", email: "", password: "" });
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setData({ ...data, [name]: value });
-  }
+function Register({ onRegister, registerError }) {
+  const { values, errors, handleChange } = useFormWithValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
-    onRegister(data);
+    onRegister(values);
   }
 
   return (
@@ -24,51 +21,54 @@ function Register({ onRegister }) {
           noValidate
         >
           <div className=" form-register__wrapper">
-            <span className="form-registrer__name">Имя</span>
+            <h2 className="form-registrer__name">Имя</h2>
             <input
               className="form__input form-registrer__input"
               required
               placeholder="Имя"
               minLength="2"
               maxLength="30"
+              type="name"
               name="name"
-              value={data.name}
+              value={values.name || ""}
               onChange={handleChange}
             ></input>
-            <span className="form-registrer__name">E-mail</span>
+            <span className="form-registrer__error">{errors.name}</span>
+            <h2 className="form-registrer__name">E-mail</h2>
             <input
               className="form-registrer__input form__input"
-              type="text"
+              type="email"
               name="email"
               placeholder="Email"
-              value={data.email}
+              value={values.email || ""}
               minLength="2"
               maxLength="30"
               required
               id="email"
               onChange={handleChange}
             ></input>
-            <span className="form-registrer__name">Пароль</span>
+            <span className="form-registrer__error">{errors.email}</span>
+            <h2 className="form-registrer__name">Пароль</h2>
             <input
               className="form__input form-registrer__input"
-              type="text"
+              type="password"
               name="password"
               placeholder="Пароль"
-              value={data.password}
+              value={values.password || ""}
               minLength="2"
               maxLength="200"
               required
               id="password"
               onChange={handleChange}
             ></input>
-            <span className="form-registrer__name form-registrer__name_color">
-              Что-то пошло не так
-            </span>
+            <span className="form-registrer__error">{errors.password}</span>
           </div>
-
-          <button type="submit" className="form-registrer__button">
-            Зарегистрироваться
-          </button>
+          <div className="form-register__navigation">
+            <span className="form-registrer__error">{registerError}</span>
+            <button type="submit" className="form-registrer__button">
+              Зарегистрироваться
+            </button>
+          </div>
         </form>
         <p className="registrer__question">
           Уже зарегистрированы?

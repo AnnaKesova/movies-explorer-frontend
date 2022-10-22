@@ -1,9 +1,9 @@
 .login__wrapper {
-    margin-bottom: 159px;
+  margin-bottom: 159px;
 }
 
 @media (max-width: 450px) {
-    .login__wrapper {
-        margin-bottom: 257px;
-    }
+  .login__wrapper {
+    margin-bottom: 257px;
+  }
 }
