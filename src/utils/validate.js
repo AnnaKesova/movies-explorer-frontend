@@ -1,17 +1,5 @@
 import { useCallback, useState } from "react";
 
-//хук управления формой
-export function useForm() {
-  const [values, setValues] = useState({name: "", email: "", password: ""});
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setValues({ ...values, [name]: value });
-  };
-
-  return { values, handleChange, setValues };
-}
-
 //хук управления формой и валидации формы
 export function useFormWithValidation() {
   const [values, setValues] = useState({ name: "", email: "", password: ""});

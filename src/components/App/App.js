@@ -15,21 +15,63 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import NotFound from "../404/404";
 import apiMain from "../../utils/MainApi";
+import { getMovies } from "../../utils/MoviesApi";
 
 function App() {
   // получение API
   const [currentUser, setCurrentUser] = useState({
     name: "",
-    about: "",
+    email: "",
   });
 
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useState(false);
   const [isEmail, setIsEmail] = useState("");
+  
 
   //ошибки логина и регистрации
   const [loginError, setLoginError] = useState("");
   const [registerError, setRegisterError] = useState("");
+
+
+  
+  const extractAllMoviesLocal = () => {
+    let allMoviesLocal = JSON.parse(localStorage.getItem("allMovies"));
+    if (!allMoviesLocal) {
+      return (allMoviesLocal = []);
+    }
+    return allMoviesLocal;
+  };
+
+  const [allMovies, setAllMovies] = useState(extractAllMoviesLocal());
+  
+   // список всех фильмов 
+   const getAllMovies = () => {
+    //setIsPreloaderActive(true); // Включаем прелоадер
+    getMovies()
+      .then((res) => { 
+        setAllMovies(res); 
+        localStorage.setItem("allMovies", JSON.stringify(res)); // запись в LocalStorage
+        //setIsPreloaderActive(false); // Выключаем прелоадер
+      })
+      .catch((err) => {
+        console.log(err)}
+      );
+  };
+
+ 
+  /*useEffect(() => {
+    if (loggedIn) {
+      getMovies()
+      .then((res) => {
+        setMovies(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+  }, [loggedIn]);*/
+
 
   // хранилище, проверка токена
 
@@ -93,10 +135,10 @@ function App() {
       })
   }
 
-  function removeToken() {
+/*  function removeToken() {
     localStorage.removeItem("jwt");
     navigate("/signin");
-  }
+  }*/
 
   useEffect(() => {
     if (loggedIn) {
@@ -111,15 +153,7 @@ function App() {
     }
   }, [loggedIn]);
 
-  /*function onEditProfileChange({name, email}) {
-    apiMain.updateUserInfo({ name, email })
-    .then((res) => {
-      setCurrentUser(res);
-    })
-    .catch((err) => {
-      console.log(err)
-    });
-  }*/
+  
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -142,7 +176,12 @@ function App() {
                 <ProtectedRoute loggedIn={loggedIn}>
                   <>
                     <HeaderMovies></HeaderMovies>
-                    <Movies></Movies>
+                    <Movies 
+                     
+                     allMovies={allMovies}
+                     getAllMovies={getAllMovies}
+                    
+                     ></Movies>
                     <Footer></Footer>
                   </>
                 </ProtectedRoute>

@@ -1,0 +1,78 @@
+.moviesCardList__poster {
+  width: 363px;
+  height: 203px;
+}
+
+@media (max-width: 800px) {
+  .moviesCardList__poster {
+    width: 339px;
+    height: 190px;
+  }
+}
+
+@media (max-width: 450px) {
+  .moviesCardList__poster {
+    width: 300px;
+    height: 168px;
+  }
+}
+
+.moviesCardList__film {
+  background: #ffffff;
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
+  height: 271px;
+}
+
+@media (max-width: 800px) {
+  .moviesCardList__film {
+    height: 258px;
+  }
+}
+
+@media (max-width: 450px) {
+  .moviesCardList__film {
+    height: 236px;
+  }
+}
+
+.moviesCardList__about {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 14px;
+}
+
+.moviesCardList__name {
+  margin: 14px 0 9px;
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+  color: #000000;
+}
+
+.moviesCardList__time {
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  display: flex;
+  align-items: center;
+  margin: 0 0 14px;
+  color: #a0a0a0;
+}
+
+.moviesCardList__save {
+  width: 30px;
+  height: 30px;
+  border: none;
+  outline: none;
+  background-color: #ffffff;
+}
+
+.moviesCardList__link {
+  height: 203px;
+  object-fit: cover;
+}
