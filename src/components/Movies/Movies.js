@@ -5,20 +5,12 @@ import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 import { moviesLegth } from "../../utils/constants";
 import Preloader from "../Movies/Preloader/Preloader";
 
-function Movies({
-  movies,
-  allMovies,
-  getAllMovies,
-  isPreloaderActive,
-}) {
-  const [flag] = useState("content");
+function Movies({ allMovies, getAllMovies, IsPreloader }) {
 
-  
   const extractCheckBoxStatus = () => {
     const userCheckBoxStatus = JSON.parse(localStorage.getItem("checkBox"));
-    return userCheckBoxStatus ? userCheckBoxStatus : false;
+    return userCheckBoxStatus ?  false : userCheckBoxStatus;
   };
-
 
   const extractKeyWords = () => {
     const userKeyWords = localStorage.getItem("keyWords");
@@ -30,6 +22,7 @@ function Movies({
   );
   const [keyWords, setKeyWords] = useState(extractKeyWords());
   const [moviesToRender, setMoviesToRender] = useState([]);
+  
 
   // Обработка запроса на поиск фильма
   const handleMoviesSearch = (text) => {
@@ -41,6 +34,7 @@ function Movies({
 
   const filterMovies = (movies, keyWords, isCheckBoxActive) => {
     let filteredMovies = movies;
+    
 
     if (keyWords !== "") {
       filteredMovies = filteredMovies.filter((item) =>
@@ -53,13 +47,15 @@ function Movies({
         (item) => item.duration <= moviesLegth
       );
     }
-    
-    return filteredMovies;
-  };
+    console.log(
+      "!",
+      movies.length,
+      filteredMovies.length,
+      keyWords,
+      isCheckBoxActive
+    );
 
-  //  нажатие на чекбокс
-  const handleCheckBoxClick = () => {
-    setIsCheckBoxActive(!isCheckBoxActive);
+    return filteredMovies;
   };
 
   // Сохранение чекбокса фильтрации короткометражных фильмов
@@ -77,27 +73,27 @@ function Movies({
     localStorage.setItem("keyWords", keyWords);
   }, [keyWords]);
 
-  useEffect(() => {
-    const moviesFiltered = filterMovies(allMovies, keyWords);
-    setMoviesToRender(moviesFiltered);
-  }, [keyWords, allMovies]);
+
+  
+//  console.log(moviesToRender)
 
   return (
     <main className="page__content content">
       <SearchForm
-        handleMoviesSearch={handleMoviesSearch}
+       handleMoviesSearch={handleMoviesSearch}
         keyWords={keyWords}
         isCheckBoxActive={isCheckBoxActive}
-        handleCheckBoxClick={handleCheckBoxClick}
         setKeyWords={setKeyWords}
         setIsCheckBoxActive={setIsCheckBoxActive}
       ></SearchForm>
-      <MoviesCardList
+      {IsPreloader ? (
+        <Preloader />
+      ) : (
+        <MoviesCardList
         moviesToRender={moviesToRender}
-        flag={flag}
-        movies={movies}
-        allMovies={allMovies}
-      ></MoviesCardList>
+          allMovies={allMovies}
+        ></MoviesCardList>
+      )}
     </main>
   );
 }

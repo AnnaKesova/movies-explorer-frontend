@@ -3,7 +3,7 @@ import "./SearchForm.css";
 
 const SearchForm = ({
   handleMoviesSearch,
-  keyWords = "",
+  keyWords,
   isCheckBoxActive,
   setIsCheckBoxActive,
 }) => {
@@ -20,13 +20,13 @@ const SearchForm = ({
     setIsCheckBoxActive(!isCheckBoxActive);
   };
 
-  // Убирает текст ошибки как только в поле поиска что-то ввeли, обновляет стейт text
+  //  обновляет  text
   const handleChange = (e) => {
     const value = e.target.value;
     setText(value);
   };
 
-  const [isCheckbox, setCheckbox] = useState(true);
+  const [isCheckbox, setCheckbox] = useState(false);
   const onCheckboxToggle = () => setCheckbox(!isCheckbox);
 
   return (
@@ -52,7 +52,7 @@ const SearchForm = ({
             checked={isCheckbox}
             type="checkbox"
             onChange={onCheckboxToggle}
-            onClick={handleCheckBoxClick}
+           onClick={handleCheckBoxClick}
           ></input>
           <span className="filterCheckbox__slider"></span>{" "}
         </label>

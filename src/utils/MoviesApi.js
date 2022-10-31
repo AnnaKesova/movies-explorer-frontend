@@ -12,7 +12,7 @@ export function checkResponse(response) {
       }
     })
     .then(checkResponse)
-    .then(movies => movies.map(movie => {const url = 'https://api.nomoreparties.co' + movie.image.url;
+    .then(movies => movies.map(movie => {const url = MOVIE_URL + movie.image.url;
     movie.thumbnail = url;
     movie.image = url;
     return movie;}));
