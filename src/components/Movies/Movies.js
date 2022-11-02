@@ -5,93 +5,88 @@ import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 import { moviesLegth } from "../../utils/constants";
 import Preloader from "../Movies/Preloader/Preloader";
 
-function Movies({ allMovies, getAllMovies, IsPreloader }) {
-
-  const extractCheckBoxStatus = () => {
-    const userCheckBoxStatus = JSON.parse(localStorage.getItem("checkBox"));
-    return userCheckBoxStatus ?  false : userCheckBoxStatus;
+function Movies({ allMovies, getAllMovies, IsPreloader, handleSaveMovie }) {
+  const changeKeyWords = () => {
+    const wordsMovie = localStorage.getItem("words");
+    return wordsMovie ? "" : wordsMovie;
   };
 
-  const extractKeyWords = () => {
-    const userKeyWords = localStorage.getItem("keyWords");
-    return userKeyWords ? "" : userKeyWords;
+  const changeCheckBox = () => {
+    const checkBoxMovie = JSON.parse(localStorage.getItem("checkBox"));
+    return checkBoxMovie ? false : checkBoxMovie;
   };
 
-  const [isCheckBoxActive, setIsCheckBoxActive] = useState(
-    extractCheckBoxStatus()
-  );
-  const [keyWords, setKeyWords] = useState(extractKeyWords());
-  const [moviesToRender, setMoviesToRender] = useState([]);
-  
+  const [isWords, setKeyWords] = useState(changeKeyWords());
+  const [isCheckBoxMovie, setIsCheckBoxMovie] = useState(changeCheckBox());
+  const [isMoviesRender, setisMoviesRender] = useState([]);
 
   // Обработка запроса на поиск фильма
   const handleMoviesSearch = (text) => {
-    if (allMovies.length < 1) {
-      getAllMovies();
-    }
+    getAllMovies();
     setKeyWords(text);
   };
 
-  const filterMovies = (movies, keyWords, isCheckBoxActive) => {
+  const filterMovies = (movies, isWords, isCheckBoxMovie) => {
     let filteredMovies = movies;
-    
 
-    if (keyWords !== "") {
+    if (isWords !== "") {
       filteredMovies = filteredMovies.filter((item) =>
-        item.nameRU.toLowerCase().includes(keyWords.toLowerCase())
+        item.nameRU.toLowerCase().includes(isWords.toLowerCase())
       );
     }
 
-    if (isCheckBoxActive) {
+    if (isCheckBoxMovie) {
       filteredMovies = filteredMovies.filter(
         (item) => item.duration <= moviesLegth
       );
     }
-    console.log(
+   /* console.log(
       "!",
       movies.length,
       filteredMovies.length,
-      keyWords,
-      isCheckBoxActive
-    );
+      isWords,
+     isCheckBoxMovie
+    );*/
 
     return filteredMovies;
   };
 
   // Сохранение чекбокса фильтрации короткометражных фильмов
   useEffect(() => {
-    localStorage.setItem("checkBox", isCheckBoxActive);
-  }, [isCheckBoxActive]);
+    localStorage.setItem("checkBox", isCheckBoxMovie);
+  }, [isCheckBoxMovie]);
 
   useEffect(() => {
-    const moviesFiltered = filterMovies(allMovies, keyWords, isCheckBoxActive);
-    setMoviesToRender(moviesFiltered);
-  }, [isCheckBoxActive, keyWords, allMovies]);
+    const moviesFiltered = filterMovies(allMovies, isWords, isCheckBoxMovie);
+    setisMoviesRender(moviesFiltered);
+  }, [isCheckBoxMovie, isWords, allMovies]);
 
   // Сохраняю слово при его изменении
   useEffect(() => {
-    localStorage.setItem("keyWords", keyWords);
-  }, [keyWords]);
+    localStorage.setItem("words", isWords);
+  }, [isWords]);
 
-
-  
-//  console.log(moviesToRender)
+  // ОБработка на жатися на иконку сохраниить фильм (в зависимости от статуса фильма происходит разные действия)
+  const handleClickSaveIcon = (data) => {
+    handleSaveMovie(data);
+  };
 
   return (
     <main className="page__content content">
       <SearchForm
-       handleMoviesSearch={handleMoviesSearch}
-        keyWords={keyWords}
-        isCheckBoxActive={isCheckBoxActive}
+        handleMoviesSearch={handleMoviesSearch}
+        isWords={isWords}
+        isCheckBoxMovie={isCheckBoxMovie}
         setKeyWords={setKeyWords}
-        setIsCheckBoxActive={setIsCheckBoxActive}
+        setIsCheckBoxMovie={setIsCheckBoxMovie}
       ></SearchForm>
       {IsPreloader ? (
         <Preloader />
       ) : (
         <MoviesCardList
-        moviesToRender={moviesToRender}
+        isMoviesRender={isMoviesRender}
           allMovies={allMovies}
+          handleClick={handleClickSaveIcon}
         ></MoviesCardList>
       )}
     </main>

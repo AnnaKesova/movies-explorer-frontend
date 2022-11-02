@@ -69,12 +69,23 @@
   height: 30px;
   border: none;
   outline: none;
-  /*background-color: #3456F3;*/
   background-color: #E8E8E8;
   background-image: url(../../../images/savelike.svg);
   background-repeat: no-repeat;
   background-position: center;
   border-radius: 50px;
+}
+
+.moviesCardList__save_active {
+  width: 30px;
+  height: 30px;
+  border: none;
+  outline: none;
+  background-image: url(../../../images/savelike.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50px;
+  background-color: #3456F3;
 }
 
 .moviesCardList__link {

@@ -33,67 +33,87 @@ function App() {
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useState(false);
   const [IsPreloader, setIsPreloader] = useState(false);
-  const [allMovies, setAllMovies] = useState([]);
+  const [allMovies, setAllMovies] = useState([]); // состояние, которое использую потом для получения фильмов.
   const location = useLocation().pathname;
+  const [savedMovies, setSavedMovies] = useState([]);
 
   //ошибки логина и регистрации
   const [loginError, setLoginError] = useState("");
   const [registerError, setRegisterError] = useState("");
 
-  /*const extractAllMoviesLocal = () => {
-    let allMoviesLocal = JSON.parse(localStorage.getItem("allMovies"));
-    if (!allMoviesLocal) {
-      return (allMoviesLocal = []);
-    }
-    return allMoviesLocal;
-  };*/
-
-  
-
   // список всех фильмов
   const getAllMovies = () => {
-    setIsPreloader(true); 
+    setIsPreloader(true);
     getMovies()
       .then((res) => {
-        const allMovies = JSON.parse(localStorage.getItem("data"));
-        localStorage.setItem("data", JSON.stringify(res));
+        const allMovies = JSON.parse(localStorage.getItem("allMovies")); 
         setAllMovies(allMovies);
-        setIsPreloader(false); 
+        localStorage.setItem("allMovies", JSON.stringify(res));
+        setIsPreloader(false);
         console.log(allMovies);
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
+  
+  
+// отрисовывание, сохранённых фильмов
   useEffect(() => {
     checkUserToken();
-  }, []);
-
-  /*useEffect(() => {
-    
     if (loggedIn) {
-      setIsPreloader(true); // Включаем прелоадер
-      setMovies([]);}
-  
-      /*if ()) {
-      getMovies()
-        .then((res) => {
-        
-          const allMovies = JSON.parse(localStorage.getItem("data"));
-          localStorage.setItem("data", JSON.stringify(res));
-          setMovies(allMovies);
-          setIsPreloader(false); // Выключаем прелоадер
-          console.log(allMovies)
+      apiMain
+        .fetchSavedMovies()
+         .then(res => {
+        //localStorage.setItem('savedMovies', JSON.stringify(res.filter((i) => i.owner === currentUser._id)))
+        //const userMovies = JSON.parse(localStorage.getItem('savedMovies'));
+
+          setSavedMovies(res);
+       //   debugger
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
         });
     }
-  }, [loggedIn]);*/
+  }, [loggedIn]);
+
+  
+    //debugger
+  // сохранение фильма
+
+  function handleSaveMovie(movie) {
+    const isSaved = savedMovies.some(m => m.id === movie.id);
+    if (!isSaved) {
+    apiMain
+      .addMovie(movie)
+      .then((savedMovie) => {
+        const arr = (savedMovies=>[savedMovie, ...savedMovies]);
+        setSavedMovies(arr);
+      })
+      .catch((err) => {
+        console.error(err);
+      });}
+  }
+ // debugger
+
+
+ 
+  function handleDeleteMovie(movie) {
+    const savedMovie = savedMovies.find((item) => item.id === movie.id);
+    apiMain
+      .deleteMovie(savedMovie._id)
+      .then((movies) => {
+        const arr = savedMovies.filter((m) => m.id !== movies.movieId);
+        setSavedMovies(arr);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+ 
 
   // хранилище, проверка токена
-
+//debugger
   function checkUserToken() {
     if (localStorage.getItem("jwt")) {
       const jwt = localStorage.getItem("jwt");
@@ -159,10 +179,17 @@ function App() {
       });
   }
 
-  /*  function removeToken() {
-    localStorage.removeItem("jwt");
-    navigate("/signin");
-  }*/
+  function handleOut() {
+    localStorage.removeItem('jwt');
+    localStorage.removeItem('allmovies');
+    setLoggedIn(false);
+    setCurrentUser({});
+    setSavedMovies([]);
+    navigate('/signin');
+  }
+
+
+  //console.log(localStorage);
 
   useEffect(() => {
     if (loggedIn) {
@@ -199,6 +226,7 @@ function App() {
                   <>
                     <HeaderMovies></HeaderMovies>
                     <Movies
+                      handleSaveMovie={handleSaveMovie}
                       allMovies={allMovies}
                       getAllMovies={getAllMovies}
                       IsPreloader={IsPreloader}
@@ -214,7 +242,11 @@ function App() {
                 <ProtectedRoute loggedIn={loggedIn}>
                   <>
                     <HeaderMovies></HeaderMovies>
-                    <SavedMovies></SavedMovies>
+                    <SavedMovies
+                      savedMovies={savedMovies}
+                      allMovies={allMovies}
+                      handleDeleteMovie={handleDeleteMovie}
+                    ></SavedMovies>
                     <Footer></Footer>
                   </>
                 </ProtectedRoute>
@@ -225,7 +257,7 @@ function App() {
               element={
                 <>
                   <HeaderMovies></HeaderMovies>
-                  <Profile /*onProfileChange={onEditProfileChange}*/></Profile>
+                  <Profile handleOut={handleOut}></Profile>
                 </>
               }
             />
@@ -252,7 +284,7 @@ function App() {
               }
             />
             <Route
-              path="/404"
+              path="#"
               element={
                 <>
                   <NotFound></NotFound>

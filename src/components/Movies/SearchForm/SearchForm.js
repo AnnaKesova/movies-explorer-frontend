@@ -3,31 +3,31 @@ import "./SearchForm.css";
 
 const SearchForm = ({
   handleMoviesSearch,
-  keyWords,
-  isCheckBoxActive,
-  setIsCheckBoxActive,
+  isCheckBoxMovie,
+  setIsCheckBoxMovie,
+  isWords
 }) => {
   
-  const [text, setText] = useState(keyWords);
+  const [isText, setIsText] = useState(isWords);
+  const [isCheckbox, setCheckbox] = useState(false);
+  const onCheckboxToggle = () => setCheckbox(!isCheckbox);
 
   // Обработка сабмита формы
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleMoviesSearch(text, isCheckBoxActive);
+    handleMoviesSearch(isText, isCheckBoxMovie);
   };
 
   const handleCheckBoxClick = () => {
-    setIsCheckBoxActive(!isCheckBoxActive);
+    setIsCheckBoxMovie(!isCheckBoxMovie);
   };
 
-  //  обновляет  text
+  //  обновляет  isText
   const handleChange = (e) => {
     const value = e.target.value;
-    setText(value);
+    setIsText(value);
   };
 
-  const [isCheckbox, setCheckbox] = useState(false);
-  const onCheckboxToggle = () => setCheckbox(!isCheckbox);
 
   return (
     <section className=" content__searchForm searchForm">
@@ -38,7 +38,7 @@ const SearchForm = ({
           required
           type="search"
           onChange={handleChange}
-          value={text}
+          value={isText || ""}
         ></input>
         <button className="searchForm__search" id="searchBtn">
           Найти

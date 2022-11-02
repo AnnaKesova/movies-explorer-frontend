@@ -5,7 +5,7 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useFormWithValidation } from "../../utils/validate";
 import apiMain from "../../utils/MainApi";
 
-function Profile() {
+function Profile(handleOut) {
   const currentUser = React.useContext(CurrentUserContext);
   const { values, handleChange, errors, isValid, setValues } =
     useFormWithValidation();
@@ -121,7 +121,7 @@ function Profile() {
             >
               Редактировать
             </button>
-            <Link className="form__color" to="/signin">
+            <Link className="form__color" onClick={handleOut} to="/signin">
               Выйти из аккаунта
             </Link>
           </div>

@@ -9,9 +9,8 @@ import {
   btnSizeLess_1279,
 } from "../../../utils/constants";
 
-function MoviesCardList({ handleClick, allMovies, moviesToRender }) {
-
-  const [moviesStartPack, setMoviesStartPack] = useState(moviesToRender);
+function MoviesCardList({ handleClick, allMovies, isMoviesRender }) {
+  const [moviesStartPack, setMoviesStartPack] = useState(isMoviesRender);
   const [moviesPerPage, setMoviesPerPage] = useState(0);
   const [moviesAddToPage, setMoviesAddToPage] = useState(0);
 
@@ -29,29 +28,22 @@ function MoviesCardList({ handleClick, allMovies, moviesToRender }) {
       setMoviesPerPage(pageSizeLess_761);
       setMoviesAddToPage(btnSizeLess_1279);
     }
-  }, [moviesToRender]);
+  }, [isMoviesRender]);
 
-
-  // Функция изменяет количество фильмов "Ещё"
+  // Функция  "Ещё"
   const handleClickMoreMovies = () => {
     setMoviesPerPage(moviesPerPage + moviesAddToPage);
   };
 
   useEffect(() => {
-    setMoviesStartPack(moviesToRender.slice(0, moviesPerPage));
-  }, [moviesToRender, moviesPerPage]);
-
-  
-  
- // console.log (moviesPerPage)
-  console.log(allMovies)
-  //console.log(movies)
+    setMoviesStartPack(isMoviesRender.slice(0, moviesPerPage));
+  }, [isMoviesRender, moviesPerPage]);
 
   return (
     <section className="content__moviesCardList moviesCardList">
       {allMovies.length === 0 ? (
         <div></div>
-      ) : moviesToRender.length !== 0 ? (
+      ) : isMoviesRender.length !== 0 ? (
         <>
           <ul className="moviesCardList__list">
             {moviesStartPack.map((movie) => (
@@ -79,6 +71,5 @@ function MoviesCardList({ handleClick, allMovies, moviesToRender }) {
     </section>
   );
 }
-
 
 export default MoviesCardList;
