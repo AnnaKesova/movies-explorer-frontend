@@ -52,15 +52,15 @@ function App() {
     getMovies()
       .then((movies) => {
         localStorage.setItem("allMovies", JSON.stringify(movies));
-        setAllMovies([])
+        setAllMovies([]);
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
         setIsPreloader(false);
-      });;
-  }, [])
+      });
+  }, []);
 
   // отрисовывание, сохранённых фильмов
   useEffect(() => {
@@ -68,7 +68,7 @@ function App() {
     if (loggedIn) {
       apiMain
         .fetchSavedMovies()
-        .then(res => {
+        .then((res) => {
           setSavedMovies(res);
         })
         .catch((err) => {
@@ -78,16 +78,15 @@ function App() {
   }, [loggedIn]);
 
 
-  //debugger
   // сохранение фильма
 
   function handleSaveMovie(movie) {
-    const isSaved = savedMovies.some(m => m.id === movie.id);
+    const isSaved = savedMovies.some((m) => m.id === movie.id);
     if (!isSaved) {
       apiMain
         .addMovie(movie)
         .then((savedMovie) => {
-          const arr = (savedMovies => [savedMovie, ...savedMovies]);
+          const arr = (savedMovies) => [savedMovie, ...savedMovies];
           setSavedMovies(arr);
         })
         .catch((err) => {
@@ -95,8 +94,6 @@ function App() {
         });
     }
   }
-  // debugger
-
 
 
   function handleDeleteMovie(movie) {
@@ -112,9 +109,8 @@ function App() {
       });
   }
 
-
   // хранилище, проверка токена
-  //debugger
+  
   function checkUserToken() {
     if (localStorage.getItem("jwt")) {
       const jwt = localStorage.getItem("jwt");
@@ -181,14 +177,14 @@ function App() {
   }
 
   function handleOut() {
-    localStorage.clear()
-    localStorage.removeItem('jwt');
-    localStorage.removeItem('allMovies');
-    localStorage.removeItem('words');
+    localStorage.clear();
+    localStorage.removeItem("jwt");
+    localStorage.removeItem("allMovies");
+    localStorage.removeItem("words");
     setLoggedIn(false);
-     setCurrentUser({});
-     setSavedMovies([]);
-    navigate('/signin');
+    setCurrentUser({});
+    setSavedMovies([]);
+    navigate("/signin");
   }
 
   useEffect(() => {
@@ -213,9 +209,9 @@ function App() {
               path="/"
               element={
                 <>
-                  <Header></Header>
-                  <Main></Main>
-                  <Footer></Footer>
+                  <Header/>
+                  <Main/>
+                  <Footer/>
                 </>
               }
             />
@@ -224,7 +220,7 @@ function App() {
               element={
                 <ProtectedRoute loggedIn={loggedIn}>
                   <>
-                    <HeaderMovies></HeaderMovies>
+                    <HeaderMovies/>
                     <Movies
                       handleSaveMovie={handleSaveMovie}
                       allMovies={allMovies}
@@ -232,7 +228,7 @@ function App() {
                       getAllMovies={getAllMovies}
                       IsPreloader={IsPreloader}
                     ></Movies>
-                    <Footer></Footer>
+                    <Footer/>
                   </>
                 </ProtectedRoute>
               }
@@ -242,13 +238,13 @@ function App() {
               element={
                 <ProtectedRoute loggedIn={loggedIn}>
                   <>
-                    <HeaderMovies></HeaderMovies>
+                    <HeaderMovies/>
                     <SavedMovies
                       savedMovies={savedMovies}
                       allMovies={allMovies}
                       handleDeleteMovie={handleDeleteMovie}
                     ></SavedMovies>
-                    <Footer></Footer>
+                    <Footer/>
                   </>
                 </ProtectedRoute>
               }
@@ -267,7 +263,7 @@ function App() {
               path="/signup"
               element={
                 <>
-                  <HeaderRegister></HeaderRegister>
+                  <HeaderRegister/>
                   <Register
                     onRegister={handleRegister}
                     registerError={registerError}
@@ -279,7 +275,7 @@ function App() {
               path="/signin"
               element={
                 <>
-                  <HeaderRegister></HeaderRegister>
+                  <HeaderRegister/>
                   <Login onLogin={handleLogin} loginError={loginError}></Login>
                 </>
               }

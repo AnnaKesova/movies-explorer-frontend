@@ -5,41 +5,31 @@ import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 import { moviesLegth } from "../../utils/constants";
 import Preloader from "../Movies/Preloader/Preloader";
 
-function Movies({ allMovies, setAllMovies, getAllMovies, IsPreloader, handleSaveMovie }) {
+function Movies({ allMovies, getAllMovies, IsPreloader, handleSaveMovie }) {
+  const changeKeyWords = () => {
+    const wordsMovie = localStorage.getItem("words");
+    return wordsMovie ? "" : wordsMovie;
+  };
 
   const changeCheckBox = () => {
     const checkBoxMovie = JSON.parse(localStorage.getItem("checkBox"));
     return checkBoxMovie ? false : checkBoxMovie;
   };
 
-  const [isWords, setKeyWords] = useState('');
+  const [isWords, setKeyWords] = useState(changeKeyWords());
   const [isCheckBoxMovie, setIsCheckBoxMovie] = useState(changeCheckBox());
-  const [message, setMessage] = useState('');
- 
-
-
-  useEffect(() => {
-    setAllMovies([])
-  }, [])
+  const [isMoviesRender, setisMoviesRender] = useState([]);
 
   // Обработка запроса на поиск фильма
   const handleMoviesSearch = (text) => {
-    const movies = JSON.parse(localStorage.getItem('allMovies'));
-    const moviesFiltered = filterMovies(movies, text, isCheckBoxMovie);
-    setAllMovies(moviesFiltered);
-    setKeyWords(text)
-    localStorage.setItem("words", text);
-
-    if (moviesFiltered.length === 0) {
-      setMessage('Ничего не найдено...')
-    } else {
-      setMessage('')
-    }
+    getAllMovies();
+    setKeyWords(text);
   };
 
   const filterMovies = (movies, isWords, isCheckBoxMovie) => {
     let filteredMovies = movies;
-    if (isWords && movies) {
+
+    if (isWords !== "") {
       filteredMovies = filteredMovies.filter((item) =>
         item.nameRU.toLowerCase().includes(isWords.toLowerCase())
       );
@@ -50,6 +40,13 @@ function Movies({ allMovies, setAllMovies, getAllMovies, IsPreloader, handleSave
         (item) => item.duration <= moviesLegth
       );
     }
+   /* console.log(
+      "!",
+      movies.length,
+      filteredMovies.length,
+      isWords,
+     isCheckBoxMovie
+    );*/
 
     return filteredMovies;
   };
@@ -59,17 +56,17 @@ function Movies({ allMovies, setAllMovies, getAllMovies, IsPreloader, handleSave
     localStorage.setItem("checkBox", isCheckBoxMovie);
   }, [isCheckBoxMovie]);
 
-   useEffect(() => {
-   const moviesFiltered = filterMovies(allMovies, isWords, isCheckBoxMovie);
-   setAllMovies(moviesFiltered);
-   }, [isCheckBoxMovie]);
+  useEffect(() => {
+    const moviesFiltered = filterMovies(allMovies, isWords, isCheckBoxMovie);
+    setisMoviesRender(moviesFiltered);
+  }, [isCheckBoxMovie, isWords, allMovies]);
 
   // Сохраняю слово при его изменении
   useEffect(() => {
     localStorage.setItem("words", isWords);
   }, [isWords]);
 
-  // ОБработка  на иконку сохраниить фильм 
+  // ОБработка на жатися на иконку сохраниить фильм (в зависимости от статуса фильма происходит разные действия)
   const handleClickSaveIcon = (data) => {
     handleSaveMovie(data);
   };
@@ -87,8 +84,7 @@ function Movies({ allMovies, setAllMovies, getAllMovies, IsPreloader, handleSave
         <Preloader />
       ) : (
         <MoviesCardList
-          message={message}
-          isMoviesRender={allMovies}
+        isMoviesRender={isMoviesRender}
           allMovies={allMovies}
           handleClick={handleClickSaveIcon}
         ></MoviesCardList>

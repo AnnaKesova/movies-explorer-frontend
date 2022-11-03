@@ -5,17 +5,17 @@ const SearchForm = ({
   handleMoviesSearch,
   isCheckBoxMovie,
   setIsCheckBoxMovie,
-  isWords,
-  setKeyWords
+  isWords
 }) => {
-
+  
+  const [isText, setIsText] = useState(isWords);
   const [isCheckbox, setCheckbox] = useState(false);
   const onCheckboxToggle = () => setCheckbox(!isCheckbox);
 
   // Обработка сабмита формы
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleMoviesSearch(isWords, isCheckBoxMovie);
+    handleMoviesSearch(isText, isCheckBoxMovie);
   };
 
   const handleCheckBoxClick = () => {
@@ -23,8 +23,9 @@ const SearchForm = ({
   };
 
   //  обновляет  isText
-  const handleChange = ({ target: { value } }) => {
-    setKeyWords(value);
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setIsText(value);
   };
 
 
@@ -37,7 +38,7 @@ const SearchForm = ({
           required
           type="search"
           onChange={handleChange}
-          value={isWords ?? ""}
+          value={isText || ""}
         ></input>
         <button className="searchForm__search" id="searchBtn">
           Найти
@@ -51,7 +52,7 @@ const SearchForm = ({
             checked={isCheckbox}
             type="checkbox"
             onChange={onCheckboxToggle}
-            onClick={handleCheckBoxClick}
+           onClick={handleCheckBoxClick}
           ></input>
           <span className="filterCheckbox__slider"></span>{" "}
         </label>
@@ -62,3 +63,4 @@ const SearchForm = ({
 };
 
 export default SearchForm;
+

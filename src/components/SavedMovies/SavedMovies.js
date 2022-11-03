@@ -11,7 +11,7 @@ function SavedMovies({ savedMovies, handleDeleteMovie }) {
   const filterMovies = (movies, isWords, isCheckBoxMovie) => {
     let filteredMovies = movies;
 
-    if (isWords && movies) {
+    if (isWords !== "") {
       filteredMovies = filteredMovies.filter((item) =>
         item.nameRU.toLowerCase().includes(isWords.toLowerCase())
       );
@@ -31,8 +31,8 @@ function SavedMovies({ savedMovies, handleDeleteMovie }) {
   };
 
   useEffect(() => {
-    // const moviesFiltered = filterMovies(savedMovies, isWords, isCheckBoxMovie);
-    // setisMoviesRend(moviesFiltered);
+    const moviesFiltered = filterMovies(savedMovies, isWords, isCheckBoxMovie);
+    setisMoviesRend(moviesFiltered);
   }, [savedMovies, isWords, isCheckBoxMovie]);
 
   useEffect(() => {
