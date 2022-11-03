@@ -43,33 +43,33 @@ function App() {
 
   // список всех фильмов
   const getAllMovies = () => {
+    const allMovies = JSON.parse(localStorage.getItem("allMovies"));
+    setAllMovies(allMovies);
+  };
+
+  useEffect(() => {
     setIsPreloader(true);
     getMovies()
-      .then((res) => {
-        const allMovies = JSON.parse(localStorage.getItem("allMovies")); 
-        setAllMovies(allMovies);
-        localStorage.setItem("allMovies", JSON.stringify(res));
-        setIsPreloader(false);
-        console.log(allMovies);
+      .then((movies) => {
+        localStorage.setItem("allMovies", JSON.stringify(movies));
+        setAllMovies([])
       })
       .catch((err) => {
         console.log(err);
-      });
-  };
-  
-  
-// отрисовывание, сохранённых фильмов
+      })
+      .finally(() => {
+        setIsPreloader(false);
+      });;
+  }, [])
+
+  // отрисовывание, сохранённых фильмов
   useEffect(() => {
     checkUserToken();
     if (loggedIn) {
       apiMain
         .fetchSavedMovies()
-         .then(res => {
-        //localStorage.setItem('savedMovies', JSON.stringify(res.filter((i) => i.owner === currentUser._id)))
-        //const userMovies = JSON.parse(localStorage.getItem('savedMovies'));
-
+        .then(res => {
           setSavedMovies(res);
-       //   debugger
         })
         .catch((err) => {
           console.error(err);
@@ -77,27 +77,28 @@ function App() {
     }
   }, [loggedIn]);
 
-  
-    //debugger
+
+  //debugger
   // сохранение фильма
 
   function handleSaveMovie(movie) {
     const isSaved = savedMovies.some(m => m.id === movie.id);
     if (!isSaved) {
-    apiMain
-      .addMovie(movie)
-      .then((savedMovie) => {
-        const arr = (savedMovies=>[savedMovie, ...savedMovies]);
-        setSavedMovies(arr);
-      })
-      .catch((err) => {
-        console.error(err);
-      });}
+      apiMain
+        .addMovie(movie)
+        .then((savedMovie) => {
+          const arr = (savedMovies => [savedMovie, ...savedMovies]);
+          setSavedMovies(arr);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
   }
- // debugger
+  // debugger
 
 
- 
+
   function handleDeleteMovie(movie) {
     const savedMovie = savedMovies.find((item) => item.id === movie.id);
     apiMain
@@ -110,10 +111,10 @@ function App() {
         console.log(err);
       });
   }
- 
+
 
   // хранилище, проверка токена
-//debugger
+  //debugger
   function checkUserToken() {
     if (localStorage.getItem("jwt")) {
       const jwt = localStorage.getItem("jwt");
@@ -180,16 +181,15 @@ function App() {
   }
 
   function handleOut() {
+    localStorage.clear()
     localStorage.removeItem('jwt');
-    localStorage.removeItem('allmovies');
+    localStorage.removeItem('allMovies');
+    localStorage.removeItem('words');
     setLoggedIn(false);
-    setCurrentUser({});
-    setSavedMovies([]);
+     setCurrentUser({});
+     setSavedMovies([]);
     navigate('/signin');
   }
-
-
-  //console.log(localStorage);
 
   useEffect(() => {
     if (loggedIn) {
@@ -228,6 +228,7 @@ function App() {
                     <Movies
                       handleSaveMovie={handleSaveMovie}
                       allMovies={allMovies}
+                      setAllMovies={setAllMovies}
                       getAllMovies={getAllMovies}
                       IsPreloader={IsPreloader}
                     ></Movies>
@@ -256,8 +257,8 @@ function App() {
               path="/profile"
               element={
                 <>
-                  <HeaderMovies></HeaderMovies>
-                  <Profile handleOut={handleOut}></Profile>
+                  <HeaderMovies />
+                  <Profile handleOut={handleOut} />
                 </>
               }
             />

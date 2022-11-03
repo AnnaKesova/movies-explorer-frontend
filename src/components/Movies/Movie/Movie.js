@@ -15,10 +15,10 @@ function Movie({ movie, handleClick }) {
 		return `${hours}ч ${minutes}м`;
 	}
 
-   // Обрабокта на жатия клика на иконке
+   // Обрабокта  клика на иконке
    const handleClickOnIcon = () => {
     setIsSaved(!isSaved); // Меняем сстатус сохранения фильма
-    handleClick(movie, isSaved); // Выполняем функцию, которая приходит в пропсах (либо из movies либо ищ saved-movies)
+    handleClick(movie, isSaved); 
   };
 
   return (
@@ -29,12 +29,12 @@ function Movie({ movie, handleClick }) {
             <p className="moviesCardList__name">{nameRU}</p>
             <p className="moviesCardList__time">{setDuration(duration)}</p>
           </div>
-          <button  type="button" className={`${
+          <button  type="button" className={`moviesCardList__save ${
             pathname === "/saved-movies"
               ? "moviesCardList__save_active"
              : "moviesCardList__save" 
-          } ${isSaved ? "oviesCardList__save_active" : ""}`}
-          onClick={handleClickOnIcon}></button>
+          } ${isSaved ? "moviesCardList__save_active" : ""}`}
+          onClick={handleClickOnIcon}> </button>
         </div>
         <a
           className="moviesCardList__link"

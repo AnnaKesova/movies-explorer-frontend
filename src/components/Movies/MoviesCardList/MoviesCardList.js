@@ -9,7 +9,7 @@ import {
   btnSizeLess_1279,
 } from "../../../utils/constants";
 
-function MoviesCardList({ handleClick, allMovies, isMoviesRender }) {
+function MoviesCardList({ handleClick, allMovies, isMoviesRender, message }) {
   const [moviesStartPack, setMoviesStartPack] = useState(isMoviesRender);
   const [moviesPerPage, setMoviesPerPage] = useState(0);
   const [moviesAddToPage, setMoviesAddToPage] = useState(0);
@@ -41,9 +41,7 @@ function MoviesCardList({ handleClick, allMovies, isMoviesRender }) {
 
   return (
     <section className="content__moviesCardList moviesCardList">
-      {allMovies.length === 0 ? (
-        <div></div>
-      ) : isMoviesRender.length !== 0 ? (
+      {allMovies &&
         <>
           <ul className="moviesCardList__list">
             {moviesStartPack.map((movie) => (
@@ -60,14 +58,14 @@ function MoviesCardList({ handleClick, allMovies, isMoviesRender }) {
               type="button"
               title="Ещё"
               onClick={handleClickMoreMovies}
+              
             >
-              Ещё
+             Ещё
             </button>
           </div>
         </>
-      ) : (
-        <div className="moviescardlist__notfound">Ничего не найдено...</div>
-      )}
+      }
+      <div className="moviescardlist__notfound">{message}</div>
     </section>
   );
 }

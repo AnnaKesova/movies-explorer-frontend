@@ -5,7 +5,7 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useFormWithValidation } from "../../utils/validate";
 import apiMain from "../../utils/MainApi";
 
-function Profile(handleOut) {
+function Profile({ handleOut }) {
   const currentUser = React.useContext(CurrentUserContext);
   const { values, handleChange, errors, isValid, setValues } =
     useFormWithValidation();
