@@ -9,9 +9,9 @@ function SavedMovies({ savedMovies, handleDeleteMovie }) {
   const [isCheckBoxMovie, setIsCheckBoxMovie] = useState(false);
 
   const filterMovies = (movies, isWords, isCheckBoxMovie) => {
-    let filteredMovies = movies;
+    let filteredMovies = movies; 
 
-    if (isWords !== "") {
+    if (isWords && movies) {
       filteredMovies = filteredMovies.filter((item) =>
         item.nameRU.toLowerCase().includes(isWords.toLowerCase())
       );
