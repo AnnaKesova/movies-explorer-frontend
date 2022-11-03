@@ -15,7 +15,7 @@ class MainApi {
         email: email,
         password: password,
       })
-    }).then(this._handlePromiseErr);//Проверка ответа
+    }).then(this._handlePromiseErr);
   }
 
   //Вход
@@ -29,7 +29,7 @@ class MainApi {
         email: email,
         password: password,
       }),
-    }).then(this._handlePromiseErr);//Проверка ответа
+    }).then(this._handlePromiseErr);
   }
 
   //Проверка валидности токена и получения email для хедера
@@ -40,11 +40,12 @@ class MainApi {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-    }).then(this._handlePromiseErr);//Проверка ответа
+    }).then(this._handlePromiseErr);
   }
 
   getUserInfoFromApi() {
     return fetch(this._baseUrl + '/users/me', {
+      method: 'GET',
       headers: this._getHeaders(),
     }).then(this._handlePromiseErr);
   }
@@ -62,6 +63,7 @@ class MainApi {
 
   fetchSavedMovies() {
     return fetch(this._baseUrl + '/movies', {
+      method: 'GET',
       headers: this._getHeaders(),
     }).then(this._handlePromiseErr)
       .then(movies => movies.map(movie => this._convertMovie(movie)));

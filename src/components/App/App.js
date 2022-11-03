@@ -21,7 +21,7 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import NotFound from "../404/404";
 import apiMain from "../../utils/MainApi";
-import { getMovies } from "../../utils/MoviesApi";
+import moviesApi from "../../utils/MoviesApi";
 
 function App() {
   // получение API
@@ -49,7 +49,7 @@ function App() {
 
   useEffect(() => {
     setIsPreloader(true);
-    getMovies()
+    moviesApi.getMovies()
       .then((movies) => {
         localStorage.setItem("allMovies", JSON.stringify(movies));
         setAllMovies([]);

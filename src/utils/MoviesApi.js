@@ -1,23 +1,35 @@
-const MOVIE_URL = 'https://api.nomoreparties.co';
-
-export function checkResponse(response) {
-    return response.ok ? response.json() : Promise.reject(`Ошибка ${response.status}`)
+class MoviesApi {
+  constructor({ baseUrl }) {
+    this._baseUrl = baseUrl;
   }
-  
-  export const getMovies = () => {
-    return fetch (`${MOVIE_URL}/beatfilm-movies`, {
-      method: 'GET',
+
+  getMovies = () => {
+    return fetch(`${this._baseUrl}/beatfilm-movies`, {
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json'
-      }
+        "Content-Type": "application/json",
+      },
     })
-    .then(checkResponse)
-    .then(movies => movies.map(movie => {const url = MOVIE_URL + movie.image.url;
-    movie.thumbnail = url;
-    movie.image = url;
-    return movie;}));
+      .then(this._checkResponse)
+      .then((movies) =>
+        movies.map((movie) => {
+          const url = this._baseUrl + movie.image.url;
+          movie.thumbnail = url;
+          movie.image = url;
+          return movie;
+        })
+      );
+  };
+
+  _checkResponse(response) {
+    return response.ok
+      ? response.json()
+      : Promise.reject(`Ошибка ${response.status}`);
   }
+}
 
+const moviesApi = new MoviesApi({
+  baseUrl: "https://api.nomoreparties.co",
+});
 
-
-  
+export default moviesApi;
