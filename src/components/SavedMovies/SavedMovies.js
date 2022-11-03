@@ -4,7 +4,7 @@ import SearchForm from "../Movies/SearchForm/SearchForm";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 
 function SavedMovies({ savedMovies, handleDeleteMovie }) {
-  const [isWords, setKeyWords] = useState("");
+  const [isWords, setIsWords] = useState("");
   const [isMoviesRender, setisMoviesRend] = useState(savedMovies);
   const [isCheckBoxMovie, setIsCheckBoxMovie] = useState(false);
 
@@ -25,7 +25,7 @@ function SavedMovies({ savedMovies, handleDeleteMovie }) {
 
   // Обработка запроса на поиск фильма
   const handleMoviesSearch = (data, isCheckBoxMovie) => {
-    setKeyWords(data);
+    setIsWords(data);
     const moviesFiltered = filterMovies(savedMovies, data, isCheckBoxMovie);
     setisMoviesRend(moviesFiltered);
   };
@@ -43,7 +43,7 @@ function SavedMovies({ savedMovies, handleDeleteMovie }) {
     <main className="page__content content savedContent">
       <SearchForm
         isWords={isWords}
-        setKeyWords={setKeyWords}
+        setIsWords={setIsWords}
         handleMoviesSearch={handleMoviesSearch}
         setisMoviesRend={setisMoviesRend}
         isCheckBoxMovie={isCheckBoxMovie}

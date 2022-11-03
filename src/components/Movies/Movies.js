@@ -12,7 +12,7 @@ function Movies({ allMovies, setAllMovies, IsPreloader, handleSaveMovie }) {
     return checkBoxMovie ? false : checkBoxMovie;
   };
 
-  const [isWords, setKeyWords] = useState("");
+  const [isWords, setIsWords] = useState("");
   const [isCheckBoxMovie, setIsCheckBoxMovie] = useState(changeCheckBox());
 
   useEffect(() => {
@@ -24,7 +24,7 @@ function Movies({ allMovies, setAllMovies, IsPreloader, handleSaveMovie }) {
     const movies = JSON.parse(localStorage.getItem("allMovies"));
     const moviesFiltered = filterMovies(movies, text, isCheckBoxMovie);
     setAllMovies(moviesFiltered);
-    setKeyWords(text);
+    setIsWords(text);
     localStorage.setItem("words", text);
   };
 
@@ -71,7 +71,7 @@ function Movies({ allMovies, setAllMovies, IsPreloader, handleSaveMovie }) {
         handleMoviesSearch={handleMoviesSearch}
         isWords={isWords}
         isCheckBoxMovie={isCheckBoxMovie}
-        setKeyWords={setKeyWords}
+        setIsWords={setIsWords}
         setIsCheckBoxMovie={setIsCheckBoxMovie}
       ></SearchForm>
       {IsPreloader ? (

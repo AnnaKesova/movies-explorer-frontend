@@ -6,24 +6,24 @@ class MainApi {
   //Регистрация
   register({ name, email, password }) {
     return fetch(`${this._baseUrl}/signup`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name: name,
         email: email,
         password: password,
-      })
+      }),
     }).then(this._handlePromiseErr);
   }
 
   //Вход
   authorize({ email, password }) {
     return fetch(`${this._baseUrl}/signin`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email: email,
@@ -35,44 +35,45 @@ class MainApi {
   //Проверка валидности токена и получения email для хедера
   checkToken(token) {
     return fetch(`${this._baseUrl}/users/me`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     }).then(this._handlePromiseErr);
   }
 
   getUserInfoFromApi() {
-    return fetch(this._baseUrl + '/users/me', {
-      method: 'GET',
+    return fetch(this._baseUrl + "/users/me", {
+      method: "GET",
       headers: this._getHeaders(),
     }).then(this._handlePromiseErr);
   }
 
   updateUserInfo({ name, email }) {
-    return fetch(this._baseUrl + '/users/me', {
-      method: 'PATCH',
+    return fetch(this._baseUrl + "/users/me", {
+      method: "PATCH",
       headers: this._getHeaders(),
       body: JSON.stringify({
         name: name,
-        email: email
-      })
+        email: email,
+      }),
     }).then(this._handlePromiseErr);
   }
 
   fetchSavedMovies() {
-    return fetch(this._baseUrl + '/movies', {
-      method: 'GET',
+    return fetch(this._baseUrl + "/movies", {
+      method: "GET",
       headers: this._getHeaders(),
-    }).then(this._handlePromiseErr)
-      .then(movies => movies.map(movie => this._convertMovie(movie)));
+    })
+      .then(this._handlePromiseErr)
+      .then((movies) => movies.map((movie) => this._convertMovie(movie)));
   }
 
   // запрос на сохранение фильма
   addMovie(movie) {
-    return fetch(this._baseUrl + '/movies', {
-      method: 'POST',
+    return fetch(this._baseUrl + "/movies", {
+      method: "POST",
       headers: this._getHeaders(),
       body: JSON.stringify({
         country: movie.country,
@@ -87,28 +88,30 @@ class MainApi {
         movieId: movie.id,
         nameRU: movie.nameRU,
         nameEN: movie.nameEN,
-      })
-    }).then(this._handlePromiseErr)
+      }),
+    })
+      .then(this._handlePromiseErr)
       .then(this._convertMovie);
   }
 
   // запрос на удаление фильма
   deleteMovie(movieId) {
     return fetch(this._baseUrl + `/movies/${movieId}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: this._getHeaders(),
-    }).then(this._handlePromiseErr)
+    })
+      .then(this._handlePromiseErr)
       .then(this._convertMovie);
   }
 
   _getToken() {
-    return `Bearer ${localStorage.getItem('jwt')}`;
+    return `Bearer ${localStorage.getItem("jwt")}`;
   }
 
   _getHeaders() {
     return {
-      'Authorization': this._getToken(),
-      'Content-Type': 'application/json'
+      Authorization: this._getToken(),
+      "Content-Type": "application/json",
     };
   }
 
@@ -123,7 +126,7 @@ class MainApi {
 }
 
 const apiMain = new MainApi({
-  baseUrl: 'https://api.anna.moviesdb.nomoredomains.sbs',
+  baseUrl: "https://api.anna.moviesdb.nomoredomains.sbs",
 });
 
 export default apiMain;
