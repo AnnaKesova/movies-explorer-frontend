@@ -9,11 +9,15 @@ import {
   btnSizeLess_1279,
 } from "../../../utils/constants";
 
-function MoviesCardList({ handleClick, allMovies, isMoviesRender }) {
+function MoviesCardList({
+  handleClick,
+  allMovies,
+  isMoviesRender,
+  savedMovies,
+}) {
   const [moviesPageDisplay, setMoviesPageDisplay] = useState(isMoviesRender);
   const [moviesPageScreen, setMoviesPageScreen] = useState(0);
   const [moviesAddToPage, setMoviesAddToPage] = useState(0);
- 
 
   //  ширина экрана и количества отображемых фильмов и добовляемых
   useEffect(() => {
@@ -40,7 +44,6 @@ function MoviesCardList({ handleClick, allMovies, isMoviesRender }) {
     setMoviesPageDisplay(isMoviesRender.slice(0, moviesPageScreen));
   }, [isMoviesRender, moviesPageScreen]);
 
-
   return (
     <section className="content__moviesCardList moviesCardList">
       {allMovies.length === 0 ? (
@@ -51,6 +54,7 @@ function MoviesCardList({ handleClick, allMovies, isMoviesRender }) {
             {moviesPageDisplay.map((movie) => (
               <Movie
                 movie={movie}
+                savedMovies={savedMovies}
                 key={movie.movieId || movie._id || movie.id}
                 handleClick={handleClick}
               />

@@ -2,23 +2,23 @@ import "./Movie.css";
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
-function Movie({ movie, handleClick }) {
+function Movie({ movie, handleClick, savedMovies }) {
   const { nameRU, trailerLink, duration, image } = movie || {};
   const [isSaved, setIsSaved] = useState(movie);
   const { pathname } = useLocation();
- 
+  //const isLiked = savedMovies.some((i) => i.id === movie.id);
 
   // Фильм - время
   function setDuration(duration) {
-		const hours = Math.floor(duration / 60);
-		const minutes = duration % 60;
-		return `${hours}ч ${minutes}м`;
-	}
+    const hours = Math.floor(duration / 60);
+    const minutes = duration % 60;
+    return `${hours}ч ${minutes}м`;
+  }
 
-   // Обрабокта  клика на иконке
-   const handleClickOnIcon = () => {
+  // Обрабокта  клика на иконке
+  const handleClickOnIcon = () => {
     setIsSaved(!isSaved); // Меняем статус  фильма
-    handleClick(movie, isSaved); 
+    handleClick(movie, isSaved);
   };
 
   return (
@@ -29,12 +29,15 @@ function Movie({ movie, handleClick }) {
             <p className="moviesCardList__name">{nameRU}</p>
             <p className="moviesCardList__time">{setDuration(duration)}</p>
           </div>
-          <button  type="button" className={`moviesCardList__save ${
-            pathname === "/saved-movies"
-              ? "moviesCardList__save_active"
-             : "moviesCardList__save" 
-          } ${isSaved ? "moviesCardList__save_active" : ""}`}
-          onClick={handleClickOnIcon}> </button>
+          <button
+            type="button"
+            className={`moviesCardList__save ${pathname === "/saved-movies"} ${
+              isSaved ? "moviesCardList__save_active" : ""
+            }`}
+            onClick={handleClickOnIcon}
+          >
+            {" "}
+          </button>
         </div>
         <a
           className="moviesCardList__link"
