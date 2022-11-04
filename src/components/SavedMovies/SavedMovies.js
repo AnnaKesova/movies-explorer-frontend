@@ -9,7 +9,7 @@ function SavedMovies({ savedMovies, handleDeleteMovie }) {
   const [isCheckBoxMovie, setIsCheckBoxMovie] = useState(false);
 
   const filterMovies = (movies, isWords, isCheckBoxMovie) => {
-    let filteredMovies = movies; 
+    let filteredMovies = movies;
 
     if (isWords && movies) {
       filteredMovies = filteredMovies.filter((item) =>
@@ -51,14 +51,13 @@ function SavedMovies({ savedMovies, handleDeleteMovie }) {
       ></SearchForm>
 
       {savedMovies.length === 0 ? (
-        <p className="savedContent__text">
-          Вы еще не сохранили не один фильм.
-        </p>
+        <p className="savedContent__text">Вы еще не сохранили не один фильм.</p>
       ) : (
         <MoviesCardList
           isMoviesRender={isMoviesRender}
           allMovies={["savedMovies"]}
           handleClick={handleDeleteMovie}
+          savedMovies={savedMovies}
         ></MoviesCardList>
       )}
     </main>

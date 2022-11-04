@@ -5,7 +5,13 @@ import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 import { moviesLegth } from "../../utils/constants";
 import Preloader from "../Movies/Preloader/Preloader";
 
-function Movies({ allMovies, setAllMovies, IsPreloader, handleSaveMovie }) {
+function Movies({
+  allMovies,
+  setAllMovies,
+  IsPreloader,
+  handleSaveMovie,
+  savedMovies,
+}) {
   const [isMoviesRender, setisMoviesRender] = useState([]);
   const changeCheckBox = () => {
     const checkBoxMovie = JSON.parse(localStorage.getItem("checkBox"));
@@ -38,7 +44,7 @@ function Movies({ allMovies, setAllMovies, IsPreloader, handleSaveMovie }) {
 
     if (isCheckBoxMovie) {
       filteredMovies = filteredMovies.filter(
-        (item) => item.duration <= moviesLegth 
+        (item) => item.duration <= moviesLegth
       );
     }
 
@@ -60,7 +66,7 @@ function Movies({ allMovies, setAllMovies, IsPreloader, handleSaveMovie }) {
     localStorage.setItem("words", isWords);
   }, [isWords]);
 
-  // ОБработка на жатися на иконку сохраниить фильм (в зависимости от статуса фильма происходит разные действия)
+  // ОБработка сохранить фильм 
   const handleClickSaveIcon = (data) => {
     handleSaveMovie(data);
   };
@@ -81,6 +87,7 @@ function Movies({ allMovies, setAllMovies, IsPreloader, handleSaveMovie }) {
           isMoviesRender={isMoviesRender}
           allMovies={allMovies}
           handleClick={handleClickSaveIcon}
+          savedMovies={savedMovies}
         ></MoviesCardList>
       )}
     </main>

@@ -41,27 +41,6 @@ function App() {
   const [loginError, setLoginError] = useState("");
   const [registerError, setRegisterError] = useState("");
 
-  // список всех фильмов
-  const getAllMovies = () => {
-    const allMovies = JSON.parse(localStorage.getItem("allMovies"));
-    setAllMovies(allMovies);
-  };
-
-  useEffect(() => {
-    setIsPreloader(true);
-    moviesApi.getMovies()
-      .then((movies) => {
-        localStorage.setItem("allMovies", JSON.stringify(movies));
-        setAllMovies([]);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setIsPreloader(false);
-      });
-  }, []);
-
   // отрисовывание, сохранённых фильмов
   useEffect(() => {
     checkUserToken();
@@ -77,11 +56,10 @@ function App() {
     }
   }, [loggedIn]);
 
-
   // сохранение фильма
 
   function handleSaveMovie(movie) {
-    const isSaved = savedMovies.some((m) => m.id === movie.id);
+    const isSaved = savedMovies.some((i) => i._id === currentUser._id);
     if (!isSaved) {
       apiMain
         .addMovie(movie)
@@ -94,7 +72,6 @@ function App() {
         });
     }
   }
-
 
   function handleDeleteMovie(movie) {
     const savedMovie = savedMovies.find((item) => item.id === movie.id);
@@ -110,7 +87,7 @@ function App() {
   }
 
   // хранилище, проверка токена
-  
+
   function checkUserToken() {
     if (localStorage.getItem("jwt")) {
       const jwt = localStorage.getItem("jwt");
@@ -162,6 +139,11 @@ function App() {
       .then((res) => {
         localStorage.setItem("jwt", res.token);
         setLoggedIn(true);
+        setIsPreloader(true);
+        moviesApi.getMovies().then((movies) => {
+          localStorage.setItem("allMovies", JSON.stringify(movies));
+          setAllMovies([]);
+        });
         navigate("/movies");
       })
       .catch((err) => {
@@ -173,6 +155,9 @@ function App() {
         } else {
           setLoginError("При авторизации пользователя произошла ошибка");
         }
+      })
+      .finally(() => {
+        setIsPreloader(false);
       });
   }
 
@@ -209,9 +194,9 @@ function App() {
               path="/"
               element={
                 <>
-                  <Header/>
-                  <Main/>
-                  <Footer/>
+                  <Header />
+                  <Main />
+                  <Footer />
                 </>
               }
             />
@@ -220,15 +205,15 @@ function App() {
               element={
                 <ProtectedRoute loggedIn={loggedIn}>
                   <>
-                    <HeaderMovies/>
+                    <HeaderMovies />
                     <Movies
                       handleSaveMovie={handleSaveMovie}
                       allMovies={allMovies}
                       setAllMovies={setAllMovies}
-                      getAllMovies={getAllMovies}
                       IsPreloader={IsPreloader}
+                      savedMovies={savedMovies}
                     ></Movies>
-                    <Footer/>
+                    <Footer />
                   </>
                 </ProtectedRoute>
               }
@@ -238,13 +223,14 @@ function App() {
               element={
                 <ProtectedRoute loggedIn={loggedIn}>
                   <>
-                    <HeaderMovies/>
+                    <HeaderMovies />
                     <SavedMovies
                       savedMovies={savedMovies}
                       allMovies={allMovies}
+                      handleSaveMovie={handleSaveMovie}
                       handleDeleteMovie={handleDeleteMovie}
                     ></SavedMovies>
-                    <Footer/>
+                    <Footer />
                   </>
                 </ProtectedRoute>
               }
@@ -263,7 +249,7 @@ function App() {
               path="/signup"
               element={
                 <>
-                  <HeaderRegister/>
+                  <HeaderRegister />
                   <Register
                     onRegister={handleRegister}
                     registerError={registerError}
@@ -275,7 +261,7 @@ function App() {
               path="/signin"
               element={
                 <>
-                  <HeaderRegister/>
+                  <HeaderRegister />
                   <Login onLogin={handleLogin} loginError={loginError}></Login>
                 </>
               }
