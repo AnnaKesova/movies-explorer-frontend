@@ -1,66 +1,66 @@
 import "./SavedMovies.css";
+import { useState, useEffect } from "react";
 import SearchForm from "../Movies/SearchForm/SearchForm";
-import one from "../../images/onepicture.svg";
-import two from "../../images/twopicture.svg";
-import three from "../../images/treepicture.svg";
-import like from "../../images/save9.svg";
+import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 
-function SavedMovies() {
+function SavedMovies({ savedMovies, handleDeleteMovie }) {
+  const [isWords, setIsWords] = useState("");
+  const [isMoviesRender, setisMoviesRend] = useState(savedMovies);
+  const [isCheckBoxMovie, setIsCheckBoxMovie] = useState(false);
+
+  const filterMovies = (movies, isWords, isCheckBoxMovie) => {
+    let filteredMovies = movies; 
+
+    if (isWords && movies) {
+      filteredMovies = filteredMovies.filter((item) =>
+        item.nameRU.toLowerCase().includes(isWords.toLowerCase())
+      );
+    }
+
+    if (isCheckBoxMovie) {
+      filteredMovies = filteredMovies.filter((item) => item.duration <= 40);
+    }
+    return filteredMovies;
+  };
+
+  // Обработка запроса на поиск фильма
+  const handleMoviesSearch = (data, isCheckBoxMovie) => {
+    setIsWords(data);
+    const moviesFiltered = filterMovies(savedMovies, data, isCheckBoxMovie);
+    setisMoviesRend(moviesFiltered);
+  };
+
+  useEffect(() => {
+    const moviesFiltered = filterMovies(savedMovies, isWords, isCheckBoxMovie);
+    setisMoviesRend(moviesFiltered);
+  }, [savedMovies, isWords, isCheckBoxMovie]);
+
+  useEffect(() => {
+    setisMoviesRend(savedMovies);
+  }, [savedMovies]);
+
   return (
-    <main className="page__content content">
-      <SearchForm></SearchForm>
-      <section className="content__moviesCardList moviesCardList savedMovies">
-        <ul className="moviesCardList__list">
-          <li className="moviesCardList__film">
-            <div className="moviesCardList__about">
-              <div className="moviesCardList__description">
-                <p className="moviesCardList__name">33 слова о дизайне</p>
-                <p className="moviesCardList__time">1ч 47м</p>
-              </div>
-              <button className="moviesCardList__save" type="button">
-                <img
-                  src={like}
-                  className="moviesCardList__like"
-                  alt="сохранить"
-                />
-              </button>
-            </div>
-            <img src={one} className="moviesCardList__poster" alt="film" />
-          </li>
-          <li className="moviesCardList__film">
-            <div className="moviesCardList__about">
-              <div className="moviesCardList__description">
-                <p className="moviesCardList__name">33 слова о дизайне</p>
-                <p className="moviesCardList__time">1ч 47м</p>
-              </div>
-              <button className="moviesCardList__save" type="button">
-                <img
-                  src={like}
-                  className="moviesCardList__like"
-                  alt="сохранить"
-                />
-              </button>
-            </div>
-            <img src={two} className="moviesCardList__poster" alt="film" />
-          </li>
-          <li className="moviesCardList__film">
-            <div className="moviesCardList__about">
-              <div className="moviesCardList__description">
-                <p className="moviesCardList__name">33 слова о дизайне</p>
-                <p className="moviesCardList__time">1ч 47м</p>
-              </div>
-              <button className="moviesCardList__save" type="button">
-                <img
-                  src={like}
-                  className="moviesCardList__like"
-                  alt="сохранить"
-                />
-              </button>
-            </div>
-            <img src={three} className="moviesCardList__poster" alt="film" />
-          </li>
-        </ul>
-      </section>
+    <main className="page__content content savedContent">
+      <SearchForm
+        isWords={isWords}
+        setIsWords={setIsWords}
+        handleMoviesSearch={handleMoviesSearch}
+        setisMoviesRend={setisMoviesRend}
+        isCheckBoxMovie={isCheckBoxMovie}
+        setIsCheckBoxMovie={setIsCheckBoxMovie}
+      ></SearchForm>
+
+      {savedMovies.length === 0 ? (
+        <p className="savedContent__text">
+          Вы еще не сохранили не один фильм.
+        </p>
+      ) : (
+        <MoviesCardList
+          isMoviesRender={isMoviesRender}
+          allMovies={["savedMovies"]}
+          handleClick={handleDeleteMovie}
+        ></MoviesCardList>
+      )}
     </main>
   );
 }

@@ -1,33 +1,60 @@
 import { Link } from "react-router-dom";
+import React from "react";
 import "./Login.css";
+import { useFormWithValidation } from "../../utils/validate";
 
-function Login() {
+function Login({ onLogin, loginError }) {
+  const { values, errors, handleChange } = useFormWithValidation();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onLogin(values);
+  }
   return (
     <section className="content__registrer registrer login">
       <div className="registrer__description">
         <h3 className="registrer__name">Рады видеть!</h3>
-        <form className="registrer__form form-registrer">
+        <form
+          className="registrer__form form-registrer"
+          onSubmit={handleSubmit}
+          noValidate
+        >
           <div className=" form-register__wrapper login__wrapper">
-            <span className="form-registrer__name">E-mail</span>
+            <h2 className="form-registrer__name">E-mail</h2>
             <input
               className="form-registrer__input form__input"
-              required=""
-              placeholder="pochta@yandex.ru"
-              minlength="2"
-              maxlength="24"
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={values.email || ""}
+              minLength="2"
+              maxLength="40"
+              required
+              id="email"
+              onChange={handleChange}
             ></input>
-            <span className="form-registrer__name">Пароль</span>
+            <span className="form-registrer__error">{errors.email}</span>
+            <h2 className="form-registrer__name">Пароль</h2>
             <input
               className="form__input form-registrer__input"
-              required=""
-              placeholder=""
-              minlength="2"
-              maxlength="24"
+              type="password"
+              name="password"
+              placeholder="Пароль"
+              value={values.password || ""}
+              minLength="2"
+              maxLength="200"
+              required
+              id="password"
+              onChange={handleChange}
             ></input>
+            <span className="form-registrer__error">{errors.password}</span>
           </div>
-          <button type="button" className="form-registrer__button">
-            Войти
-          </button>
+          <div className="form-register__navigation">
+            <span className="form-registrer__error">{loginError}</span>
+            <button type="submit" className="form-registrer__button">
+              Войти
+            </button>
+          </div>
         </form>
         <p className="registrer__question">
           Ещё не зарегистрированы?

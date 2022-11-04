@@ -1,45 +1,74 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import "../Register/Register.css";
+import { useFormWithValidation } from "../../utils/validate";
 
-function Register() {
+function Register({ onRegister, registerError }) {
+  const { values, errors, handleChange } = useFormWithValidation();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onRegister(values);
+  }
+
   return (
     <section className="content__registrer registrer">
       <div className="registrer__description">
         <h3 className="registrer__name">Добро пожаловать!</h3>
-        <form className="registrer__form form-registrer">
+        <form
+          className="registrer__form form-registrer"
+          onSubmit={handleSubmit}
+          noValidate
+        >
           <div className=" form-register__wrapper">
-            <span className="form-registrer__name">Имя</span>
+            <h2 className="form-registrer__name">Имя</h2>
             <input
               className="form__input form-registrer__input"
               required
-              placeholder="Василий"
-              minlength="2"
-              maxlength="24"
+              placeholder="Имя"
+              minLength="2"
+              maxLength="30"
+              type="name"
+              name="name"
+              value={values.name || ""}
+              onChange={handleChange}
             ></input>
-            <span className="form-registrer__name">E-mail</span>
+            <span className="form-registrer__error">{errors.name}</span>
+            <h2 className="form-registrer__name">E-mail</h2>
             <input
               className="form-registrer__input form__input"
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={values.email || ""}
+              minLength="2"
+              maxLength="30"
               required
-              placeholder="pochta@yandex.ru"
-              minlength="2"
-              maxlength="24"
+              id="email"
+              onChange={handleChange}
             ></input>
-            <span className="form-registrer__name">Пароль</span>
+            <span className="form-registrer__error">{errors.email}</span>
+            <h2 className="form-registrer__name">Пароль</h2>
             <input
               className="form__input form-registrer__input"
+              type="password"
+              name="password"
+              placeholder="Пароль"
+              value={values.password || ""}
+              minLength="2"
+              maxLength="200"
               required
-              placeholder="••••••••••••••"
-              minlength="2"
-              maxlength="24"
+              id="password"
+              onChange={handleChange}
             ></input>
-            <span className="form-registrer__name form-registrer__name_color">
-              Что-то пошло не так
-            </span>
+            <span className="form-registrer__error">{errors.password}</span>
           </div>
-
-          <button type="button" className="form-registrer__button">
-            Зарегистрироваться
-          </button>
+          <div className="form-register__navigation">
+            <span className="form-registrer__error">{registerError}</span>
+            <button type="submit" className="form-registrer__button">
+              Зарегистрироваться
+            </button>
+          </div>
         </form>
         <p className="registrer__question">
           Уже зарегистрированы?

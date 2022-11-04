@@ -39,63 +39,89 @@
   }
 }
 
-.form {
+.profile__form {
   display: flex;
   flex-direction: column;
   width: 410px;
-  margin-bottom: 220px;
-}
-
-@media (max-width: 768px) {
-  .form {
-    margin-bottom: 210px;
-  }
 }
 
 @media (max-width: 450px) {
-  .form {
+  .profile__form {
     width: 260px;
-    margin-bottom: 379px;
   }
 }
 
-.form__input {
-  border: none;
+.form__label {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   border-bottom: 1px solid #e8e8e8;
+  padding-bottom: 16px;
+}
+
+.form__label:last-of-type {
+  border-bottom: none;
+}
+
+.form__label-name {
   font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 11px;
   line-height: 13px;
-  padding-bottom: 16px;
 }
 
-.form__input:last-of-type {
-  border-bottom: none;
-}
-
-.form__name_margin {
-  margin-top: 0;
-}
-
-.form__name {
+.profile__input {
+  border: none;
   text-align: right;
   font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 11px;
   line-height: 13px;
-  -webkit-transform: translateY(10px);
 }
 
-.profile__instrument {
-  display: flex;
+.form__name_margin {
+  margin-top: 0;
+}
+
+.profile__form-error {
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  color: red;
+  margin-bottom: 10px;
+}
+
+.form__instrument {
+  text-align: center;
+  display: none;
   flex-direction: column;
-  align-items: center;
+  margin-top: 200px;
 }
 
-.profile__accaunt {
-  text-decoration: none;
+@media (max-width: 768px) {
+  .form__instrument {
+    margin-top: 190px;
+  }
+}
+
+@media (max-width: 450px) {
+  .form__instrument {
+    width: 260px;
+    margin-top: 359px;
+  }
+}
+
+.form__instrument_visible {
+  display: flex;
+}
+
+.form__accaunt {
+  border: none;
+  background-color: #fff;
   font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
@@ -103,15 +129,132 @@
   line-height: 16px;
   color: #000000;
   margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.form__accaunt:hover {
+  opacity: 0.8;
 }
 
 @media (max-width: 450px) {
-  .profile__accaunt {
+  .form__account {
     line-height: 15px;
   }
 }
 
-.profile__accaunt_color {
+.form__color {
+  text-decoration: none;
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
   color: #ee3465;
-  margin-bottom: 0;
+}
+
+.form__color:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 450px) {
+  .form__color {
+    line-height: 15px;
+  }
+}
+
+.form__profile-change {
+  border: none;
+  outline: none;
+  width: 410px;
+  height: 45px;
+  background-color: #3456f3;
+  border-radius: 3px;
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+@media (max-width: 450px) {
+  .form__profile-change {
+    width: 260px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
+
+.form__profile-change:hover {
+  background-color: #3456f3;
+  opacity: 0.8;
+  border-radius: 3px;
+}
+
+.form__profile-change_inactive {
+  background-color: #f8f8f8;
+  color: #c2c2c2;
+}
+
+.profile__error-text {
+  display: block;
+  height: 13px;
+  margin: 0 0 20px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: center;
+  color: #ff004c;
+}
+
+.profile__submit {
+  display: none;
+  margin-top: 200px;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .profile__submit {
+    margin-top: 190px;
+  }
+}
+
+@media (max-width: 450px) {
+  .profile__submit {
+    margin-top: 359px;
+  }
+}
+
+.profile__submit_visible {
+  display: flex;
+}
+
+.profile__submit_type-success {
+  margin-bottom: 10px;
+}
+
+.profile__finil {
+  display: none;
+  align-self: center;
+  margin-top: 200px;
+}
+
+@media (max-width: 768px) {
+  .profile__finil {
+    margin-top: 190px;
+  }
+}
+
+@media (max-width: 450px) {
+  .profile__finil {
+    margin-top: 359px;
+  }
+}
+
+.profile__finil_visible {
+  display: flex;
 }

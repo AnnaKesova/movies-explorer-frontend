@@ -1,215 +1,75 @@
 import "./MoviesCardList.css";
-import one from "../../../images/onepicture.svg";
-import two from "../../../images/twopicture.svg";
-import three from "../../../images/treepicture.svg";
-import four from "../../../images/fourpicture.svg";
-import five from "../../../images/fivepicture.svg";
-import six from "../../../images/sixpicture.svg";
-import seven from "../../../images/sevenpicture.svg";
-import eight from "../../../images/eightpicture.svg";
-import nine from "../../../images/tenpicture.svg";
-import ten from "../../../images/elevenpicture.svg";
-import eleven from "../../../images/tvelvepicture.svg";
-import twelve from "../../../images/thiteenpicture.svg";
-import like from "../../../images/save9.svg";
+import Movie from "../Movie/Movie";
+import React, { useState, useEffect } from "react";
+import {
+  pageSizeMore_1280,
+  pageSize_761_1279,
+  pageSizeLess_761,
+  btnSizeMore_1280,
+  btnSizeLess_1279,
+} from "../../../utils/constants";
 
-function MoviesCardList() {
+function MoviesCardList({ handleClick, allMovies, isMoviesRender }) {
+  const [moviesPageDisplay, setMoviesPageDisplay] = useState(isMoviesRender);
+  const [moviesPageScreen, setMoviesPageScreen] = useState(0);
+  const [moviesAddToPage, setMoviesAddToPage] = useState(0);
+ 
+
+  //  ширина экрана и количества отображемых фильмов и добовляемых
+  useEffect(() => {
+    const screenWidth = window.screen.width;
+
+    if (screenWidth >= 1280) {
+      setMoviesPageScreen(pageSizeMore_1280);
+      setMoviesAddToPage(btnSizeMore_1280);
+    } else if (screenWidth < 1280 && screenWidth > 761) {
+      setMoviesPageScreen(pageSize_761_1279);
+      setMoviesAddToPage(btnSizeLess_1279);
+    } else {
+      setMoviesPageScreen(pageSizeLess_761);
+      setMoviesAddToPage(btnSizeLess_1279);
+    }
+  }, [isMoviesRender]);
+
+  // Функция  "Ещё"
+  const handleClickMoreMovies = () => {
+    setMoviesPageScreen(moviesPageScreen + moviesAddToPage);
+  };
+
+  useEffect(() => {
+    setMoviesPageDisplay(isMoviesRender.slice(0, moviesPageScreen));
+  }, [isMoviesRender, moviesPageScreen]);
+
+
   return (
     <section className="content__moviesCardList moviesCardList">
-      <ul className="moviesCardList__list">
-        <li className="moviesCardList__film">
-          <div className="moviesCardList__about">
-            <div className="moviesCardList__description">
-              <p className="moviesCardList__name">33 слова о дизайне</p>
-              <p className="moviesCardList__time">1ч 47м</p>
-            </div>
-            <button className="moviesCardList__save" type="button">
-              <img
-                src={like}
-                className="moviesCardList__like"
-                alt="сохранить"
+      {allMovies.length === 0 ? (
+        <div></div>
+      ) : isMoviesRender.length !== 0 ? (
+        <>
+          <ul className="moviesCardList__list">
+            {moviesPageDisplay.map((movie) => (
+              <Movie
+                movie={movie}
+                key={movie.movieId || movie._id || movie.id}
+                handleClick={handleClick}
               />
+            ))}
+          </ul>
+          <div className="moviesCardList__else">
+            <button
+              className="moviesCardList__button"
+              type="button"
+              title="Ещё"
+              onClick={handleClickMoreMovies}
+            >
+              Ещё
             </button>
           </div>
-          <img src={one} className="moviesCardList__poster" alt="film" />
-        </li>
-        <li className="moviesCardList__film">
-          <div className="moviesCardList__about">
-            <div className="moviesCardList__description">
-              <p className="moviesCardList__name">33 слова о дизайне</p>
-              <p className="moviesCardList__time">1ч 47м</p>
-            </div>
-            <button className="moviesCardList__save" type="button">
-              <img
-                src={like}
-                className="moviesCardList__like"
-                alt="сохранить"
-              />
-            </button>
-          </div>
-          <img src={two} className="moviesCardList__poster" alt="film" />
-        </li>
-        <li className="moviesCardList__film">
-          <div className="moviesCardList__about">
-            <div className="moviesCardList__description">
-              <p className="moviesCardList__name">33 слова о дизайне</p>
-              <p className="moviesCardList__time">1ч 47м</p>
-            </div>
-            <button className="moviesCardList__save" type="button">
-              <img
-                src={like}
-                className="moviesCardList__like"
-                alt="сохранить"
-              />
-            </button>
-          </div>
-          <img src={three} className="moviesCardList__poster" alt="film" />
-        </li>
-        <li className="moviesCardList__film">
-          <div className="moviesCardList__about">
-            <div className="moviesCardList__description">
-              <p className="moviesCardList__name">33 слова о дизайне</p>
-              <p className="moviesCardList__time">1ч 47м</p>
-            </div>
-            <button className="moviesCardList__save" type="button">
-              <img
-                src={like}
-                className="moviesCardList__like"
-                alt="сохранить"
-              />
-            </button>
-          </div>
-          <img src={four} className="moviesCardList__poster" alt="film" />
-        </li>
-        <li className="moviesCardList__film">
-          <div className="moviesCardList__about">
-            <div className="moviesCardList__description">
-              <p className="moviesCardList__name">33 слова о дизайне</p>
-              <p className="moviesCardList__time">1ч 47м</p>
-            </div>
-            <button className="moviesCardList__save" type="button">
-              <img
-                src={like}
-                className="moviesCardList__like"
-                alt="сохранить"
-              />
-            </button>
-          </div>
-          <img src={five} className="moviesCardList__poster" alt="film" />
-        </li>
-        <li className="moviesCardList__film">
-          <div className="moviesCardList__about">
-            <div className="moviesCardList__description">
-              <p className="moviesCardList__name">33 слова о дизайне</p>
-              <p className="moviesCardList__time">1ч 47м</p>
-            </div>
-            <button className="moviesCardList__save" type="button">
-              <img
-                src={like}
-                className="moviesCardList__like"
-                alt="сохранить"
-              />
-            </button>
-          </div>
-          <img src={six} className="moviesCardList__poster" alt="film" />
-        </li>
-        <li className="moviesCardList__film">
-          <div className="moviesCardList__about">
-            <div className="moviesCardList__description">
-              <p className="moviesCardList__name">33 слова о дизайне</p>
-              <p className="moviesCardList__time">1ч 47м</p>
-            </div>
-            <button className="moviesCardList__save" type="button">
-              <img
-                src={like}
-                className="moviesCardList__like"
-                alt="сохранить"
-              />
-            </button>
-          </div>
-          <img src={seven} className="moviesCardList__poster" alt="film" />
-        </li>
-        <li className="moviesCardList__film">
-          <div className="moviesCardList__about">
-            <div className="moviesCardList__description">
-              <p className="moviesCardList__name">33 слова о дизайне</p>
-              <p className="moviesCardList__time">1ч 47м</p>
-            </div>
-            <button className="moviesCardList__save" type="button">
-              <img
-                src={like}
-                className="moviesCardList__like"
-                alt="сохранить"
-              />
-            </button>
-          </div>
-          <img src={eight} className="moviesCardList__poster" alt="film" />
-        </li>
-        <li className="moviesCardList__film">
-          <div className="moviesCardList__about">
-            <div className="moviesCardList__description">
-              <p className="moviesCardList__name">33 слова о дизайне</p>
-              <p className="moviesCardList__time">1ч 47м</p>
-            </div>
-            <button className="moviesCardList__save" type="button">
-              <img
-                src={like}
-                className="moviesCardList__like"
-                alt="сохранить"
-              />
-            </button>
-          </div>
-          <img src={nine} className="moviesCardList__poster" alt="film" />
-        </li>
-        <li className="moviesCardList__film">
-          <div className="moviesCardList__about">
-            <div className="moviesCardList__description">
-              <p className="moviesCardList__name">33 слова о дизайне</p>
-              <p className="moviesCardList__time">1ч 47м</p>
-            </div>
-            <button className="moviesCardList__save" type="button">
-              <img
-                src={like}
-                className="moviesCardList__like"
-                alt="сохранить"
-              />
-            </button>
-          </div>
-          <img src={ten} className="moviesCardList__poster" alt="film" />
-        </li>
-        <li className="moviesCardList__film">
-          <div className="moviesCardList__about">
-            <div className="moviesCardList__description">
-              <p className="moviesCardList__name">33 слова о дизайне</p>
-              <p className="moviesCardList__time">1ч 47м</p>
-            </div>
-            <button className="moviesCardList__save" type="button">
-              <img
-                src={like}
-                className="moviesCardList__like"
-                alt="сохранить"
-              />
-            </button>
-          </div>
-          <img src={eleven} className="moviesCardList__poster" alt="film" />
-        </li>
-        <li className="moviesCardList__film">
-          <div className="moviesCardList__about">
-            <div className="moviesCardList__description">
-              <p className="moviesCardList__name">33 слова о дизайне</p>
-              <p className="moviesCardList__time">1ч 47м</p>
-            </div>
-            <button className="moviesCardList__save" type="button">
-              <img
-                src={like}
-                className="moviesCardList__like"
-                alt="сохранить"
-              />
-            </button>
-          </div>
-          <img src={twelve} className="moviesCardList__poster" alt="film" />
-        </li>
-      </ul>
+        </>
+      ) : (
+        <div className="moviescardlist__notfound">Ничего не найдено...</div>
+      )}
     </section>
   );
 }

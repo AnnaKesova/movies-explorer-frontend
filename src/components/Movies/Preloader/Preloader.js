@@ -2,9 +2,11 @@ import "./Preloader.css"
 
 function Preloader() {
     return(
-        <section className="content__preloader preloader">
-            <button className="preloader__else" type="button" title="Ещё">Ещё</button>
-        </section>
+      <div className="preloader">
+            <div className="preloader__container">
+                <span className="preloader__round"></span>
+            </div>
+        </div>
     );
 }
 

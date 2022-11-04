@@ -13,7 +13,7 @@ function HeaderMovies() {
   return (
     <header className="page__header headerm">
       <div className="headerm__content">
-        <Link class="headerm__link" to="/">
+        <Link className="headerm__link" to="/">
           <img src={logo} className="headerm__logo" alt="logo" />
         </Link>
         <nav className="headerm__movies movies">

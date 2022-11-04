@@ -73,6 +73,7 @@
   padding-left: 15px;
   box-sizing: border-box;
   margin-top: 5px;
+  border: none;
 }
 
 .form-registrer__input:last-of-type {
@@ -89,8 +90,13 @@
   color: #a0a0a0;
 }
 
-.form-registrer__name_color {
+.form-registrer__error {
   color: #ee3465;
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
 }
 
 .form-registrer__button {
@@ -108,6 +114,7 @@
   text-align: center;
   color: #ffffff;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 @media (max-width: 450px) {
@@ -165,4 +172,10 @@
 .profile__accaunt_color:hover {
   color: #3456f3;
   opacity: 0.7;
+}
+
+.form-register__navigation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
