@@ -17,7 +17,7 @@ function Movie({ movie, handleClick }) {
 
    // Обрабокта  клика на иконке
    const handleClickOnIcon = () => {
-    setIsSaved(!isSaved); // Меняем сстатус сохранения фильма
+    setIsSaved(!isSaved); // Меняем статус  фильма
     handleClick(movie, isSaved); 
   };
 

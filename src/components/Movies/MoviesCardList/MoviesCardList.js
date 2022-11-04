@@ -10,34 +10,35 @@ import {
 } from "../../../utils/constants";
 
 function MoviesCardList({ handleClick, allMovies, isMoviesRender }) {
-  const [moviesStartPack, setMoviesStartPack] = useState(isMoviesRender);
-  const [moviesPerPage, setMoviesPerPage] = useState(0);
+  const [moviesPageDisplay, setMoviesPageDisplay] = useState(isMoviesRender);
+  const [moviesPageScreen, setMoviesPageScreen] = useState(0);
   const [moviesAddToPage, setMoviesAddToPage] = useState(0);
+ 
 
   //  ширина экрана и количества отображемых фильмов и добовляемых
   useEffect(() => {
     const screenWidth = window.screen.width;
 
     if (screenWidth >= 1280) {
-      setMoviesPerPage(pageSizeMore_1280);
+      setMoviesPageScreen(pageSizeMore_1280);
       setMoviesAddToPage(btnSizeMore_1280);
     } else if (screenWidth < 1280 && screenWidth > 761) {
-      setMoviesPerPage(pageSize_761_1279);
+      setMoviesPageScreen(pageSize_761_1279);
       setMoviesAddToPage(btnSizeLess_1279);
     } else {
-      setMoviesPerPage(pageSizeLess_761);
+      setMoviesPageScreen(pageSizeLess_761);
       setMoviesAddToPage(btnSizeLess_1279);
     }
   }, [isMoviesRender]);
 
   // Функция  "Ещё"
   const handleClickMoreMovies = () => {
-    setMoviesPerPage(moviesPerPage + moviesAddToPage);
+    setMoviesPageScreen(moviesPageScreen + moviesAddToPage);
   };
 
   useEffect(() => {
-    setMoviesStartPack(isMoviesRender.slice(0, moviesPerPage));
-  }, [isMoviesRender, moviesPerPage]);
+    setMoviesPageDisplay(isMoviesRender.slice(0, moviesPageScreen));
+  }, [isMoviesRender, moviesPageScreen]);
 
 
   return (
@@ -47,7 +48,7 @@ function MoviesCardList({ handleClick, allMovies, isMoviesRender }) {
       ) : isMoviesRender.length !== 0 ? (
         <>
           <ul className="moviesCardList__list">
-            {moviesStartPack.map((movie) => (
+            {moviesPageDisplay.map((movie) => (
               <Movie
                 movie={movie}
                 key={movie.movieId || movie._id || movie.id}

@@ -38,7 +38,7 @@ function Movies({ allMovies, setAllMovies, IsPreloader, handleSaveMovie }) {
 
     if (isCheckBoxMovie) {
       filteredMovies = filteredMovies.filter(
-        (item) => item.duration <= moviesLegth
+        (item) => item.duration <= moviesLegth 
       );
     }
 
