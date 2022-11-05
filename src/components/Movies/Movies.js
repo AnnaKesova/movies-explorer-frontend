@@ -31,7 +31,8 @@ function Movies({
     const moviesFiltered = filterMovies(movies, text, isCheckBoxMovie);
     setAllMovies(moviesFiltered);
     setIsWords(text);
-    localStorage.setItem("words", text);
+    localStorage.setItem("words", text); 
+   // localStorage.setItem("filter", moviesFiltered);
   };
 
   const filterMovies = (movies, isWords, isCheckBoxMovie) => {
@@ -48,6 +49,8 @@ function Movies({
       );
     }
 
+    //localStorage.setItem("filter", filteredMovies);
+
     return filteredMovies;
   };
 
@@ -62,9 +65,9 @@ function Movies({
   }, [isCheckBoxMovie, isWords, allMovies]);
 
   // Сохраняю слово при его изменении
-  useEffect(() => {
+  /*useEffect(() => {
     localStorage.setItem("words", isWords);
-  }, [isWords]);
+  }, [isWords]);*/
 
   // ОБработка сохранить фильм 
   const handleClickSaveIcon = (data) => {

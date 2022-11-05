@@ -3,8 +3,8 @@ import React from "react";
 import "./Login.css";
 import { useFormWithValidation } from "../../utils/validate";
 
-function Login({ onLogin, loginError }) {
-  const { values, errors, handleChange } = useFormWithValidation();
+function Login({ onLogin }) {
+  const { values, errors, handleChange, isValid } = useFormWithValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -50,8 +50,14 @@ function Login({ onLogin, loginError }) {
             <span className="form-registrer__error">{errors.password}</span>
           </div>
           <div className="form-register__navigation">
-            <span className="form-registrer__error">{loginError}</span>
-            <button type="submit" className="form-registrer__button">
+            <button
+              type="submit"
+              className={
+                isValid
+                  ? "form-registrer__button"
+                  : "form-registrer__button_inactive"
+              }
+            >
               Войти
             </button>
           </div>

@@ -38,9 +38,8 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]);
 
   //ошибки логина и регистрации
-  const [loginError, setLoginError] = useState("");
-  const [registerError, setRegisterError] = useState("");
- // const [isRegistration, seIsRegistration] = useState('');
+  //const [loginError, setLoginError] = useState("");
+  // const [registerError, setRegisterError] = useState("");
 
   // отрисовывание, сохранённых фильмов
   useEffect(() => {
@@ -118,18 +117,13 @@ function App() {
         email: email,
         password: password,
       })
-      .then(() => {
-        navigate("/signin");
+      .then((res) => {
+        if (res.name || res.email) {
+          handleLogin({ password, email });
+        }
       })
       .catch((err) => {
-        if (err === "Ошибка: 409") {
-          setRegisterError("Пользователь с таким email уже существует");
-        }
-        if (err === "Ошибка: 500") {
-          setRegisterError("Ошибка сервера");
-        } else {
-          setRegisterError("При регистрации пользователя произошла ошибка");
-        }
+        console.log(err);
       });
   }
 
@@ -140,7 +134,8 @@ function App() {
       .then((res) => {
         localStorage.setItem("jwt", res.token);
         setLoggedIn(true);
-        setIsPreloader(true);
+       // setTimeout(setIsPreloader(true), 500);
+        
         moviesApi.getMovies().then((movies) => {
           localStorage.setItem("allMovies", JSON.stringify(movies));
           setAllMovies([]);
@@ -148,29 +143,26 @@ function App() {
         navigate("/movies");
       })
       .catch((err) => {
-        if (err === "Ошибка: 401") {
-          setLoginError("Неправильный логин или пароль");
-        }
-        if (err === "Ошибка: 500") {
-          setLoginError("Ошибка сервера");
-        } else {
-          setLoginError("При авторизации пользователя произошла ошибка");
-        }
+        console.log(err);
       })
       .finally(() => {
         setIsPreloader(false);
       });
   }
 
+  function onEditProfile({ name, email }) {
+    setCurrentUser({ name, email });
+  }
+
   function handleOut() {
     localStorage.clear();
     localStorage.removeItem("jwt");
     localStorage.removeItem("allMovies");
-    localStorage.removeItem("words");
+    // localStorage.removeItem("words");
     setLoggedIn(false);
     setCurrentUser({});
     setSavedMovies([]);
-    navigate("/signin");
+    navigate("/");
   }
 
   useEffect(() => {
@@ -195,7 +187,7 @@ function App() {
               path="/"
               element={
                 <>
-                  <Header loggedIn={loggedIn}/>
+                  <Header loggedIn={loggedIn} />
                   <Main />
                   <Footer />
                 </>
@@ -206,13 +198,14 @@ function App() {
               element={
                 <ProtectedRoute loggedIn={loggedIn}>
                   <>
-                    <Header loggedIn={loggedIn}/>
+                    <Header loggedIn={loggedIn} />
                     <Movies
                       handleSaveMovie={handleSaveMovie}
                       allMovies={allMovies}
                       setAllMovies={setAllMovies}
                       IsPreloader={IsPreloader}
                       savedMovies={savedMovies}
+                      handleDeleteMovie={handleDeleteMovie}
                     ></Movies>
                     <Footer />
                   </>
@@ -224,7 +217,7 @@ function App() {
               element={
                 <ProtectedRoute loggedIn={loggedIn}>
                   <>
-                    <Header loggedIn={loggedIn}/>
+                    <Header loggedIn={loggedIn} />
                     <SavedMovies
                       savedMovies={savedMovies}
                       allMovies={allMovies}
@@ -240,8 +233,11 @@ function App() {
               path="/profile"
               element={
                 <>
-                  <Header loggedIn={loggedIn}/>
-                  <Profile handleOut={handleOut} />
+                  <Header loggedIn={loggedIn} />
+                  <Profile
+                    handleOut={handleOut}
+                    onEditProfile={onEditProfile}
+                  />
                 </>
               }
             />
@@ -253,7 +249,7 @@ function App() {
                   <HeaderRegister />
                   <Register
                     onRegister={handleRegister}
-                    registerError={registerError}
+                    //registerError={registerError}
                   ></Register>
                 </>
               }
@@ -263,7 +259,9 @@ function App() {
               element={
                 <>
                   <HeaderRegister />
-                  <Login onLogin={handleLogin} loginError={loginError}></Login>
+                  <Login
+                    onLogin={handleLogin} /*loginError={loginError}*/
+                  ></Login>
                 </>
               }
             />

@@ -131,6 +131,38 @@
   border-radius: 3px;
 }
 
+.form-registrer__button_inactive {
+  background-color: #f8f8f8;
+  color: #c2c2c2;
+  border: none;
+  outline: none;
+  width: 396px;
+  height: 45px;
+  border-radius: 3px;
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+@media (max-width: 450px) {
+  .form-registrer__button_inactive {
+    width: 260px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
+
+.form-registrer__button_inactive:hover {
+  opacity: 0.8;
+  border-radius: 3px;
+}
+
+
 .registrer__question {
   font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
   font-style: normal;

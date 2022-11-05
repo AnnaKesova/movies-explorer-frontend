@@ -4,7 +4,7 @@ import "../Register/Register.css";
 import { useFormWithValidation } from "../../utils/validate";
 
 function Register({ onRegister, registerError }) {
-  const { values, errors, handleChange } = useFormWithValidation();
+  const { values, errors, handleChange, isValid } = useFormWithValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -64,8 +64,14 @@ function Register({ onRegister, registerError }) {
             <span className="form-registrer__error">{errors.password}</span>
           </div>
           <div className="form-register__navigation">
-            <span className="form-registrer__error">{registerError}</span>
-            <button type="submit" className="form-registrer__button">
+            <button
+              type="submit"
+              className={
+                isValid
+                  ? "form-registrer__button"
+                  : "form-registrer__button_inactive"
+              }
+            >
               Зарегистрироваться
             </button>
           </div>
