@@ -8,7 +8,9 @@ function NotFound() {
         <h2 className="notFound__numder">404</h2>
         <p className="notFound__page">Страница не найдена</p>
       </div>
-      <Link className="notFound__link">Назад</Link>
+      <Link className="notFound__link" to="/">
+        Назад
+      </Link>
     </section>
   );
 }

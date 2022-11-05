@@ -32,7 +32,7 @@ function App() {
 
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useState(false);
-  const [IsPreloader, setIsPreloader] = useState(false);
+  //const [IsPreloader, setIsPreloader] = useState(false);
   const [allMovies, setAllMovies] = useState([]); // состояние, которое использую потом для получения фильмов.
   const location = useLocation().pathname;
   const [savedMovies, setSavedMovies] = useState([]);
@@ -134,8 +134,8 @@ function App() {
       .then((res) => {
         localStorage.setItem("jwt", res.token);
         setLoggedIn(true);
-       // setTimeout(setIsPreloader(true), 500);
-        
+        // setTimeout(setIsPreloader(true), 500);
+
         moviesApi.getMovies().then((movies) => {
           localStorage.setItem("allMovies", JSON.stringify(movies));
           setAllMovies([]);
@@ -144,10 +144,10 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-      })
-      .finally(() => {
-        setIsPreloader(false);
       });
+    /*.finally(() => {
+        setIsPreloader(false);
+      });*/
   }
 
   function onEditProfile({ name, email }) {
@@ -203,7 +203,7 @@ function App() {
                       handleSaveMovie={handleSaveMovie}
                       allMovies={allMovies}
                       setAllMovies={setAllMovies}
-                      IsPreloader={IsPreloader}
+                      //IsPreloader={IsPreloader}
                       savedMovies={savedMovies}
                       handleDeleteMovie={handleDeleteMovie}
                     ></Movies>
@@ -265,20 +265,7 @@ function App() {
                 </>
               }
             />
-            <Route
-              path="#"
-              element={
-                <>
-                  <NotFound></NotFound>
-                </>
-              }
-            />
-            <Route
-              path="#"
-              element={
-                loggedIn ? <Navigate to="/" /> : <Navigate to="/signin" />
-              }
-            />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </div>

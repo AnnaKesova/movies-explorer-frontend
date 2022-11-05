@@ -8,7 +8,7 @@ import Preloader from "../Movies/Preloader/Preloader";
 function Movies({
   allMovies,
   setAllMovies,
-  IsPreloader,
+ // IsPreloader,
   handleSaveMovie,
   savedMovies,
 }) {
@@ -17,7 +17,7 @@ function Movies({
     const checkBoxMovie = JSON.parse(localStorage.getItem("checkBox"));
     return checkBoxMovie ? false : checkBoxMovie;
   };
-
+  const [IsPreloader, setIsPreloader] = useState(false);
   const [isWords, setIsWords] = useState("");
   const [isCheckBoxMovie, setIsCheckBoxMovie] = useState(changeCheckBox());
 
@@ -27,9 +27,11 @@ function Movies({
 
   // Обработка запроса на поиск фильма
   const handleMoviesSearch = (text) => {
+    setTimeout(setIsPreloader(true), 1000);
     const movies = JSON.parse(localStorage.getItem("allMovies"));
     const moviesFiltered = filterMovies(movies, text, isCheckBoxMovie);
     setAllMovies(moviesFiltered);
+    setIsPreloader(false)
     setIsWords(text);
     localStorage.setItem("words", text); 
    // localStorage.setItem("filter", moviesFiltered);

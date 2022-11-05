@@ -42,13 +42,14 @@ function Profile({ handleOut, onEditProfile }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    onEditProfile({ name: values.name, email: values.email });
+    onEditProfileDate({ name: values.name, email: values.email });
   }
 
-  function onEditProfile({ name, email }) {
+  function onEditProfileDate({ name, email }) {
     apiMain
       .updateUserInfo({ name: name, email: email })
       .then(() => {
+        onEditProfile({ name, email });
         setClassesListSubmitProfile("");
         setclassesListFinilProfile("profile__finil_visible");
         setEditProfileStatus("Сохранено");
@@ -121,7 +122,7 @@ function Profile({ handleOut, onEditProfile }) {
             >
               Редактировать
             </button>
-            <Link className="form__color" onClick={handleOut} to="/signin">
+            <Link className="form__color" onClick={handleOut} to="/">
               Выйти из аккаунта
             </Link>
           </div>

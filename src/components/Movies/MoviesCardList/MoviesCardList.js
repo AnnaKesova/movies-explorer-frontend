@@ -15,25 +15,32 @@ function MoviesCardList({
   isMoviesRender,
   savedMovies,
 }) {
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [moviesPageDisplay, setMoviesPageDisplay] = useState(isMoviesRender);
   const [moviesPageScreen, setMoviesPageScreen] = useState(0);
   const [moviesAddToPage, setMoviesAddToPage] = useState(0);
 
-  //  ширина экрана и количества отображемых фильмов и добовляемых
   useEffect(() => {
-    const screenWidth = window.screen.width;
+    const windowSize = () => {
+      setScreenWidth(window.innerWidth);
+    };
 
-    if (screenWidth >= 1280) {
+    if (screenWidth > 1280) {
       setMoviesPageScreen(pageSizeMore_1280);
       setMoviesAddToPage(btnSizeMore_1280);
-    } else if (screenWidth < 1280 && screenWidth > 761) {
+    } else if (screenWidth <= 1280 && screenWidth > 761) {
       setMoviesPageScreen(pageSize_761_1279);
       setMoviesAddToPage(btnSizeLess_1279);
-    } else {
+    } else if (screenWidth <= 761) {
       setMoviesPageScreen(pageSizeLess_761);
       setMoviesAddToPage(btnSizeLess_1279);
     }
-  }, [isMoviesRender]);
+
+    window.addEventListener("resize", windowSize);
+    return () => {
+      window.removeEventListener("resize", windowSize);
+    };
+  }, [screenWidth]);
 
   // Функция  "Ещё"
   const handleClickMoreMovies = () => {
