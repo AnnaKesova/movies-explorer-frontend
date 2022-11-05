@@ -40,6 +40,7 @@ function App() {
   //ошибки логина и регистрации
   const [loginError, setLoginError] = useState("");
   const [registerError, setRegisterError] = useState("");
+ // const [isRegistration, seIsRegistration] = useState('');
 
   // отрисовывание, сохранённых фильмов
   useEffect(() => {
@@ -194,7 +195,7 @@ function App() {
               path="/"
               element={
                 <>
-                  <Header />
+                  <Header loggedIn={loggedIn}/>
                   <Main />
                   <Footer />
                 </>
@@ -205,7 +206,7 @@ function App() {
               element={
                 <ProtectedRoute loggedIn={loggedIn}>
                   <>
-                    <HeaderMovies />
+                    <Header loggedIn={loggedIn}/>
                     <Movies
                       handleSaveMovie={handleSaveMovie}
                       allMovies={allMovies}
@@ -223,7 +224,7 @@ function App() {
               element={
                 <ProtectedRoute loggedIn={loggedIn}>
                   <>
-                    <HeaderMovies />
+                    <Header loggedIn={loggedIn}/>
                     <SavedMovies
                       savedMovies={savedMovies}
                       allMovies={allMovies}
@@ -239,7 +240,7 @@ function App() {
               path="/profile"
               element={
                 <>
-                  <HeaderMovies />
+                  <Header loggedIn={loggedIn}/>
                   <Profile handleOut={handleOut} />
                 </>
               }

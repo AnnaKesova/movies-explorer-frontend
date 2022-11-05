@@ -11,11 +11,7 @@ function HeaderMovies() {
   const handleBurgerMenuClose = () => setIsBurgerMenuOpen("");
 
   return (
-    <header className="page__header headerm">
-      <div className="headerm__content">
-        <Link className="headerm__link" to="/">
-          <img src={logo} className="headerm__logo" alt="logo" />
-        </Link>
+    <>
         <nav className="headerm__movies movies">
           <div className="movies__list">
               <Link className="movies__dif" to="/movies">
@@ -42,8 +38,7 @@ function HeaderMovies() {
           isOpen={isBurgerMenuOpen}
           isClose={handleBurgerMenuClose}
         ></BurgerMenu>
-      </div>
-    </header>
+        </>
   );
 }
 
