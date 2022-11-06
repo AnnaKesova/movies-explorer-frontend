@@ -60,7 +60,7 @@ function App() {
         })
         .catch((err) => {
           console.log(err);
-          //logOutErrAuthorization(err);
+          logOutErrAuthorization(err);
         });
     }
   }
@@ -74,7 +74,6 @@ function App() {
         setSavedMovies(arr);
       })
       .catch((err) => {
-        //console.log(err);
         logOutErrAuthorization(err);
       });
   }
