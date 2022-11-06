@@ -7,5 +7,9 @@ JSX
 адаптивная верстка
 js
 form
-Проект представляет собой: сайт-портфолио и сайт по поиску фильмов. На данный момент сайт проходит этап вёрстки. 
+Проект представляет собой: сайт-портфолио и сайт по поиску фильмов. 
 Прилагаю ссылку на макет. https://disk.yandex.ru/d/GljqZQr0JnXMBw
+Сейчас проект проходит этап "оживления". Его можно протестировать по ссылке:https://anna.moviesdb.nomoredomains.sbs/saved-movies.
+
+Ссылка на новый pullrequest https://github.com/AnnaKesova/movies-explorer-frontend/pull/4
+ 

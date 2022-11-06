@@ -1,18 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {
-  Navigate,
-  Route,
-  Routes,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import "./App.css";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
-import HeaderMovies from "../Header/HeaderMovies/HeaderMovies";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
@@ -21,7 +14,6 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import NotFound from "../404/404";
 import apiMain from "../../utils/MainApi";
-import moviesApi from "../../utils/MoviesApi";
 
 function App() {
   // получение API
@@ -32,7 +24,6 @@ function App() {
 
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useState(false);
-  const [IsPreloader, setIsPreloader] = useState(false);
   const [allMovies, setAllMovies] = useState([]); // состояние, которое использую потом для получения фильмов.
   const location = useLocation().pathname;
   const [savedMovies, setSavedMovies] = useState([]);
@@ -57,7 +48,6 @@ function App() {
   }, [loggedIn]);
 
   // сохранение фильма
-
   function handleSaveMovie(movie) {
     const isSaved = savedMovies.some((i) => i._id === currentUser._id);
     if (!isSaved) {
@@ -68,7 +58,8 @@ function App() {
           setSavedMovies(arr);
         })
         .catch((err) => {
-          console.error(err);
+          console.log(err);
+          logOutErrAuthorization(err);
         });
     }
   }
@@ -82,12 +73,11 @@ function App() {
         setSavedMovies(arr);
       })
       .catch((err) => {
-        console.log(err);
+        logOutErrAuthorization(err);
       });
   }
 
   // хранилище, проверка токена
-
   function checkUserToken() {
     if (localStorage.getItem("jwt")) {
       const jwt = localStorage.getItem("jwt");
@@ -117,18 +107,13 @@ function App() {
         email: email,
         password: password,
       })
-      .then(() => {
-        navigate("/signin");
+      .then((res) => {
+        if (res.name || res.email) {
+          handleLogin({ password, email });
+        }
       })
       .catch((err) => {
-        if (err === "Ошибка: 409") {
-          setRegisterError("Пользователь с таким email уже существует");
-        }
-        if (err === "Ошибка: 500") {
-          setRegisterError("Ошибка сервера");
-        } else {
-          setRegisterError("При регистрации пользователя произошла ошибка");
-        }
+        setRegisterError("При авторизации пользователя произошла ошибка");
       });
   }
 
@@ -139,26 +124,15 @@ function App() {
       .then((res) => {
         localStorage.setItem("jwt", res.token);
         setLoggedIn(true);
-        setIsPreloader(true);
-        moviesApi.getMovies().then((movies) => {
-          localStorage.setItem("allMovies", JSON.stringify(movies));
-          setAllMovies([]);
-        });
         navigate("/movies");
       })
       .catch((err) => {
-        if (err === "Ошибка: 401") {
-          setLoginError("Неправильный логин или пароль");
-        }
-        if (err === "Ошибка: 500") {
-          setLoginError("Ошибка сервера");
-        } else {
-          setLoginError("При авторизации пользователя произошла ошибка");
-        }
-      })
-      .finally(() => {
-        setIsPreloader(false);
+        setLoginError("При авторизации пользователя произошла ошибка");
       });
+  }
+
+  function onEditProfile({ name, email }) {
+    setCurrentUser({ name, email });
   }
 
   function handleOut() {
@@ -169,7 +143,9 @@ function App() {
     setLoggedIn(false);
     setCurrentUser({});
     setSavedMovies([]);
-    navigate("/signin");
+    setLoginError("");
+    setRegisterError("");
+    navigate("/");
   }
 
   useEffect(() => {
@@ -185,6 +161,19 @@ function App() {
     }
   }, [loggedIn]);
 
+  // Функция делает полный лог-аут в случае, если любой запрос к серверу заканчивается ошибкой авторизации
+  const logOutErrAuthorization = (err) => {
+    setLoggedIn(false);
+    localStorage.clear();
+    localStorage.removeItem("jwt");
+    setAllMovies([]);
+    setSavedMovies([]);
+    setCurrentUser({});
+    setLoginError("");
+    setRegisterError("");
+    navigate("/");
+  };
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
@@ -194,7 +183,7 @@ function App() {
               path="/"
               element={
                 <>
-                  <Header />
+                  <Header loggedIn={loggedIn} />
                   <Main />
                   <Footer />
                 </>
@@ -205,13 +194,13 @@ function App() {
               element={
                 <ProtectedRoute loggedIn={loggedIn}>
                   <>
-                    <HeaderMovies />
+                    <Header loggedIn={loggedIn} />
                     <Movies
                       handleSaveMovie={handleSaveMovie}
                       allMovies={allMovies}
                       setAllMovies={setAllMovies}
-                      IsPreloader={IsPreloader}
                       savedMovies={savedMovies}
+                      handleDeleteMovie={handleDeleteMovie}
                     ></Movies>
                     <Footer />
                   </>
@@ -223,7 +212,7 @@ function App() {
               element={
                 <ProtectedRoute loggedIn={loggedIn}>
                   <>
-                    <HeaderMovies />
+                    <Header loggedIn={loggedIn} />
                     <SavedMovies
                       savedMovies={savedMovies}
                       allMovies={allMovies}
@@ -239,8 +228,11 @@ function App() {
               path="/profile"
               element={
                 <>
-                  <HeaderMovies />
-                  <Profile handleOut={handleOut} />
+                  <Header loggedIn={loggedIn} />
+                  <Profile
+                    handleOut={handleOut}
+                    onEditProfile={onEditProfile}
+                  />
                 </>
               }
             />
@@ -253,6 +245,7 @@ function App() {
                   <Register
                     onRegister={handleRegister}
                     registerError={registerError}
+                    setRegisterError={setRegisterError}
                   ></Register>
                 </>
               }
@@ -262,24 +255,15 @@ function App() {
               element={
                 <>
                   <HeaderRegister />
-                  <Login onLogin={handleLogin} loginError={loginError}></Login>
+                  <Login
+                    onLogin={handleLogin}
+                    loginError={loginError}
+                    setLoginError={setLoginError}
+                  ></Login>
                 </>
               }
             />
-            <Route
-              path="#"
-              element={
-                <>
-                  <NotFound></NotFound>
-                </>
-              }
-            />
-            <Route
-              path="#"
-              element={
-                loggedIn ? <Navigate to="/" /> : <Navigate to="/signin" />
-              }
-            />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </div>

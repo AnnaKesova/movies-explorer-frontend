@@ -5,7 +5,7 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useFormWithValidation } from "../../utils/validate";
 import apiMain from "../../utils/MainApi";
 
-function Profile({ handleOut }) {
+function Profile({ handleOut, onEditProfile }) {
   const currentUser = React.useContext(CurrentUserContext);
   const { values, handleChange, errors, isValid, setValues } =
     useFormWithValidation();
@@ -42,13 +42,14 @@ function Profile({ handleOut }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    onEditProfile({ name: values.name, email: values.email });
+    onEditProfileDate({ name: values.name, email: values.email });
   }
 
-  function onEditProfile({ name, email }) {
+  function onEditProfileDate({ name, email }) {
     apiMain
       .updateUserInfo({ name: name, email: email })
       .then(() => {
+        onEditProfile({ name, email });
         setClassesListSubmitProfile("");
         setclassesListFinilProfile("profile__finil_visible");
         setEditProfileStatus("Сохранено");
@@ -121,7 +122,7 @@ function Profile({ handleOut }) {
             >
               Редактировать
             </button>
-            <Link className="form__color" onClick={handleOut} to="/signin">
+            <Link className="form__color" onClick={handleOut} to="/">
               Выйти из аккаунта
             </Link>
           </div>
