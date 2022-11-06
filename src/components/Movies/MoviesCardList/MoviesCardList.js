@@ -14,7 +14,7 @@ function MoviesCardList({
   allMovies,
   isMoviesRender,
   savedMovies,
-  handleClick
+  handleClick,
 }) {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [moviesPageDisplay, setMoviesPageDisplay] = useState(isMoviesRender);
@@ -51,7 +51,7 @@ function MoviesCardList({
   useEffect(() => {
     setMoviesPageDisplay(isMoviesRender.slice(0, moviesPageScreen));
   }, [isMoviesRender, moviesPageScreen]);
-
+  //debugger;
   return (
     <section className="content__moviesCardList moviesCardList">
       {allMovies.length === 0 ? (
@@ -65,19 +65,23 @@ function MoviesCardList({
                 savedMovies={savedMovies}
                 key={movie.movieId || movie._id || movie.id}
                 handleSaveClick={handleSaveClick}
-                handleClick = {handleClick}
+                handleClick={handleClick}
               />
             ))}
           </ul>
           <div className="moviesCardList__else">
-            <button
-              className="moviesCardList__button"
-              type="button"
-              title="Ещё"
-              onClick={handleClickMoreMovies}
-            >
-              Ещё
-            </button>
+            {isMoviesRender.length > moviesPageScreen ? (
+              <button
+                className="moviesCardList__button"
+                type="button"
+                title="Ещё"
+                onClick={handleClickMoreMovies}
+              >
+                Ещё
+              </button>
+            ) : (
+              ""
+            )}
           </div>
         </>
       ) : (
