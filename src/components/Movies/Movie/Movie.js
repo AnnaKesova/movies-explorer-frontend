@@ -31,7 +31,7 @@ function Movie({ movie, handleClick, savedMovies }) {
           </div>
           <button
             type="button"
-            className={`moviesCardList__save ${pathname === "/saved-movies"} ${
+            className={`"moviesCardList__save" ${pathname === "/saved-movies"} ${
               isSaved ? "moviesCardList__save_active" : ""
             }`}
             onClick={handleClickOnIcon}

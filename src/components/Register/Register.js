@@ -2,13 +2,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../Register/Register.css";
 import { useFormWithValidation } from "../../utils/validate";
+import { useEffect } from "react";
 
-function Register({ onRegister, registerError }) {
+function Register({ onRegister, registerError, setRegisterError }) {
   const { values, errors, handleChange, isValid } = useFormWithValidation();
+
+  useEffect(() => {
+    setRegisterError("")
+}, []);
 
   function handleSubmit(e) {
     e.preventDefault();
     onRegister(values);
+    
   }
 
   return (
@@ -64,6 +70,7 @@ function Register({ onRegister, registerError }) {
             <span className="form-registrer__error">{errors.password}</span>
           </div>
           <div className="form-register__navigation">
+          <span className="form-registrer__error">{registerError ? registerError : ""}</span>
             <button
               type="submit"
               className={

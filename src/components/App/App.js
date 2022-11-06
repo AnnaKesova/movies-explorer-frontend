@@ -1,18 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {
-  Navigate,
-  Route,
-  Routes,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import "./App.css";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
-import HeaderMovies from "../Header/HeaderMovies/HeaderMovies";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
@@ -21,7 +14,7 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import NotFound from "../404/404";
 import apiMain from "../../utils/MainApi";
-import moviesApi from "../../utils/MoviesApi";
+//import moviesApi from "../../utils/MoviesApi";
 
 function App() {
   // получение API
@@ -38,8 +31,8 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]);
 
   //ошибки логина и регистрации
-  //const [loginError, setLoginError] = useState("");
-  // const [registerError, setRegisterError] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const [registerError, setRegisterError] = useState("");
 
   // отрисовывание, сохранённых фильмов
   useEffect(() => {
@@ -68,7 +61,7 @@ function App() {
           setSavedMovies(arr);
         })
         .catch((err) => {
-          console.error(err);
+          logOutErrAuthorization(err);
         });
     }
   }
@@ -123,7 +116,7 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log(err);
+        setRegisterError("При авторизации пользователя произошла ошибка");
       });
   }
 
@@ -134,20 +127,15 @@ function App() {
       .then((res) => {
         localStorage.setItem("jwt", res.token);
         setLoggedIn(true);
-        // setTimeout(setIsPreloader(true), 500);
-
-        moviesApi.getMovies().then((movies) => {
+        /* moviesApi.getMovies().then((movies) => {
           localStorage.setItem("allMovies", JSON.stringify(movies));
           setAllMovies([]);
-        });
+        });*/
         navigate("/movies");
       })
       .catch((err) => {
-        console.log(err);
+        setLoginError("При авторизации пользователя произошла ошибка");
       });
-    /*.finally(() => {
-        setIsPreloader(false);
-      });*/
   }
 
   function onEditProfile({ name, email }) {
@@ -158,10 +146,12 @@ function App() {
     localStorage.clear();
     localStorage.removeItem("jwt");
     localStorage.removeItem("allMovies");
-    // localStorage.removeItem("words");
+    localStorage.removeItem("words");
     setLoggedIn(false);
     setCurrentUser({});
     setSavedMovies([]);
+    setLoginError("");
+    setRegisterError("");
     navigate("/");
   }
 
@@ -177,6 +167,20 @@ function App() {
         });
     }
   }, [loggedIn]);
+
+  // Функция делает полный лог-аут в случае, если любой запрос к серверу заканчивается ошибкой авторизации
+  const logOutErrAuthorization = (err) => {
+    setLoggedIn(false);
+    localStorage.clear();
+    localStorage.removeItem("jwt");
+    setAllMovies([]);
+    setSavedMovies([]);
+    setCurrentUser({});
+    setLoginError("");
+    setRegisterError("");
+    navigate("/");
+  };
+  //debugger
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -249,7 +253,8 @@ function App() {
                   <HeaderRegister />
                   <Register
                     onRegister={handleRegister}
-                    //registerError={registerError}
+                    registerError={registerError}
+                    setRegisterError={setRegisterError}
                   ></Register>
                 </>
               }
@@ -260,7 +265,9 @@ function App() {
                 <>
                   <HeaderRegister />
                   <Login
-                    onLogin={handleLogin} /*loginError={loginError}*/
+                    onLogin={handleLogin}
+                    loginError={loginError}
+                    setLoginError={setLoginError}
                   ></Login>
                 </>
               }
