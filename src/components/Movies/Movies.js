@@ -4,13 +4,14 @@ import SearchForm from "../Movies/SearchForm/SearchForm";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 import { moviesLegth } from "../../utils/constants";
 import Preloader from "../Movies/Preloader/Preloader";
+import moviesApi from "../../utils/MoviesApi";
 
 function Movies({
   allMovies,
   setAllMovies,
-  IsPreloader,
   handleSaveMovie,
   savedMovies,
+  handleDeleteMovie
 }) {
   const [isMoviesRender, setisMoviesRender] = useState([]);
   const changeCheckBox = () => {
@@ -18,21 +19,14 @@ function Movies({
     return checkBoxMovie ? false : checkBoxMovie;
   };
 
-  const [isWords, setIsWords] = useState("");
-  const [isCheckBoxMovie, setIsCheckBoxMovie] = useState(changeCheckBox());
-
-  useEffect(() => {
-    setAllMovies([]);
-  }, []);
-
-  // Обработка запроса на поиск фильма
-  const handleMoviesSearch = (text) => {
-    const movies = JSON.parse(localStorage.getItem("allMovies"));
-    const moviesFiltered = filterMovies(movies, text, isCheckBoxMovie);
-    setAllMovies(moviesFiltered);
-    setIsWords(text);
-    localStorage.setItem("words", text);
+  const extraIsWords = () => {
+    const searchIsWords = localStorage.getItem("words");
+    return searchIsWords ? searchIsWords : "";
   };
+
+  const [IsPreloader, setIsPreloader] = useState(false);
+  const [isWords, setIsWords] = useState(extraIsWords());
+  const [isCheckBoxMovie, setIsCheckBoxMovie] = useState(changeCheckBox());
 
   const filterMovies = (movies, isWords, isCheckBoxMovie) => {
     let filteredMovies = movies;
@@ -47,9 +41,41 @@ function Movies({
         (item) => item.duration <= moviesLegth
       );
     }
-
     return filteredMovies;
   };
+
+  // Обработка запроса на поиск фильма
+  const handleMoviesSearch = (text) => {
+    if (localStorage.getItem("allMovies") === null) {
+      setIsPreloader(true);
+
+      moviesApi.getMovies().then((movies) => {
+        const moviesFiltered = filterMovies(movies, text, false);
+        setAllMovies(moviesFiltered);
+        setIsWords(text);
+        localStorage.setItem("words", text);
+        localStorage.setItem("allMovies", JSON.stringify(movies));
+        localStorage.setItem("filter", JSON.stringify(moviesFiltered));
+        setIsPreloader(false);
+      });
+    } else {
+      const movies = JSON.parse(localStorage.getItem("allMovies"));
+      const moviesFiltered = filterMovies(movies, text, false);
+      setIsWords(text);
+      localStorage.setItem("words", text);
+      localStorage.setItem("filter", JSON.stringify(moviesFiltered));
+      setAllMovies(moviesFiltered);
+    }
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("filter") !== null) {
+      const currentMovie = JSON.parse(localStorage.getItem("filter"));
+      setAllMovies(currentMovie);
+    } else {
+      setAllMovies([]);
+    }
+  }, []);
 
   // Сохранение чекбокса фильтрации короткометражных фильмов
   useEffect(() => {
@@ -61,12 +87,7 @@ function Movies({
     setisMoviesRender(moviesFiltered);
   }, [isCheckBoxMovie, isWords, allMovies]);
 
-  // Сохраняю слово при его изменении
-  useEffect(() => {
-    localStorage.setItem("words", isWords);
-  }, [isWords]);
-
-  // ОБработка сохранить фильм 
+  // ОБработка сохранить фильм
   const handleClickSaveIcon = (data) => {
     handleSaveMovie(data);
   };
@@ -86,7 +107,8 @@ function Movies({
         <MoviesCardList
           isMoviesRender={isMoviesRender}
           allMovies={allMovies}
-          handleClick={handleClickSaveIcon}
+          handleSaveClick={handleClickSaveIcon}
+          handleClick={handleDeleteMovie}
           savedMovies={savedMovies}
         ></MoviesCardList>
       )}
