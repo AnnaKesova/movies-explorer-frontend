@@ -10,10 +10,11 @@ import {
 } from "../../../utils/constants";
 
 function MoviesCardList({
-  handleClick,
+  handleSaveClick,
   allMovies,
   isMoviesRender,
   savedMovies,
+  handleClick
 }) {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [moviesPageDisplay, setMoviesPageDisplay] = useState(isMoviesRender);
@@ -63,7 +64,8 @@ function MoviesCardList({
                 movie={movie}
                 savedMovies={savedMovies}
                 key={movie.movieId || movie._id || movie.id}
-                handleClick={handleClick}
+                handleSaveClick={handleSaveClick}
+                handleClick = {handleClick}
               />
             ))}
           </ul>

@@ -25,7 +25,6 @@ function App() {
 
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useState(false);
-  //const [IsPreloader, setIsPreloader] = useState(false);
   const [allMovies, setAllMovies] = useState([]); // состояние, которое использую потом для получения фильмов.
   const location = useLocation().pathname;
   const [savedMovies, setSavedMovies] = useState([]);
@@ -50,7 +49,6 @@ function App() {
   }, [loggedIn]);
 
   // сохранение фильма
-
   function handleSaveMovie(movie) {
     const isSaved = savedMovies.some((i) => i._id === currentUser._id);
     if (!isSaved) {
@@ -61,7 +59,8 @@ function App() {
           setSavedMovies(arr);
         })
         .catch((err) => {
-          logOutErrAuthorization(err);
+          console.log(err);
+          //logOutErrAuthorization(err);
         });
     }
   }
@@ -75,12 +74,12 @@ function App() {
         setSavedMovies(arr);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
+        logOutErrAuthorization(err);
       });
   }
 
   // хранилище, проверка токена
-
   function checkUserToken() {
     if (localStorage.getItem("jwt")) {
       const jwt = localStorage.getItem("jwt");
@@ -127,10 +126,6 @@ function App() {
       .then((res) => {
         localStorage.setItem("jwt", res.token);
         setLoggedIn(true);
-        /* moviesApi.getMovies().then((movies) => {
-          localStorage.setItem("allMovies", JSON.stringify(movies));
-          setAllMovies([]);
-        });*/
         navigate("/movies");
       })
       .catch((err) => {
@@ -180,7 +175,7 @@ function App() {
     setRegisterError("");
     navigate("/");
   };
-  //debugger
+  
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -207,7 +202,6 @@ function App() {
                       handleSaveMovie={handleSaveMovie}
                       allMovies={allMovies}
                       setAllMovies={setAllMovies}
-                      //IsPreloader={IsPreloader}
                       savedMovies={savedMovies}
                       handleDeleteMovie={handleDeleteMovie}
                     ></Movies>

@@ -9,9 +9,9 @@ import moviesApi from "../../utils/MoviesApi";
 function Movies({
   allMovies,
   setAllMovies,
-  // IsPreloader,
   handleSaveMovie,
   savedMovies,
+  handleDeleteMovie
 }) {
   const [isMoviesRender, setisMoviesRender] = useState([]);
   const changeCheckBox = () => {
@@ -107,7 +107,8 @@ function Movies({
         <MoviesCardList
           isMoviesRender={isMoviesRender}
           allMovies={allMovies}
-          handleClick={handleClickSaveIcon}
+          handleSaveClick={handleClickSaveIcon}
+          handleClick={handleDeleteMovie}
           savedMovies={savedMovies}
         ></MoviesCardList>
       )}
