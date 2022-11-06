@@ -167,6 +167,6 @@
 }
 
 .searchForm__search:disabled {
-  background: rgba(248, 248, 248, .5);
+  background: rgba(248, 248, 248, 0.5);
   opacity: 80%;
 }
