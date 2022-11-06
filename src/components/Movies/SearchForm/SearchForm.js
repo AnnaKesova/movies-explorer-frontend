@@ -5,8 +5,9 @@ const SearchForm = ({
   handleMoviesSearch,
   isCheckBoxMovie,
   setIsCheckBoxMovie,
-  isWords,
+  isWords
 }) => {
+  
   const [isText, setIsText] = useState(isWords);
   const [isCheckbox, setCheckbox] = useState(false);
   const onCheckboxToggle = () => setCheckbox(!isCheckbox);
@@ -26,6 +27,7 @@ const SearchForm = ({
     const value = e.target.value;
     setIsText(value);
   };
+
 
   return (
     <section className=" content__searchForm searchForm">
@@ -50,7 +52,7 @@ const SearchForm = ({
             checked={isCheckbox}
             type="checkbox"
             onChange={onCheckboxToggle}
-            onClick={handleCheckBoxClick}
+           onClick={handleCheckBoxClick}
           ></input>
           <span className="filterCheckbox__slider"></span>{" "}
         </label>

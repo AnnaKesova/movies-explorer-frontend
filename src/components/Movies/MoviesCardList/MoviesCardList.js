@@ -10,30 +10,38 @@ import {
 } from "../../../utils/constants";
 
 function MoviesCardList({
-  handleClick,
+  handleSaveClick,
   allMovies,
   isMoviesRender,
   savedMovies,
+  handleClick,
 }) {
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [moviesPageDisplay, setMoviesPageDisplay] = useState(isMoviesRender);
   const [moviesPageScreen, setMoviesPageScreen] = useState(0);
   const [moviesAddToPage, setMoviesAddToPage] = useState(0);
 
-  //  ширина экрана и количества отображемых фильмов и добовляемых
   useEffect(() => {
-    const screenWidth = window.screen.width;
+    const windowSize = () => {
+      setScreenWidth(window.innerWidth);
+    };
 
-    if (screenWidth >= 1280) {
+    if (screenWidth > 1280) {
       setMoviesPageScreen(pageSizeMore_1280);
       setMoviesAddToPage(btnSizeMore_1280);
-    } else if (screenWidth < 1280 && screenWidth > 761) {
+    } else if (screenWidth <= 1280 && screenWidth > 761) {
       setMoviesPageScreen(pageSize_761_1279);
       setMoviesAddToPage(btnSizeLess_1279);
-    } else {
+    } else if (screenWidth <= 761) {
       setMoviesPageScreen(pageSizeLess_761);
       setMoviesAddToPage(btnSizeLess_1279);
     }
-  }, [isMoviesRender]);
+
+    window.addEventListener("resize", windowSize);
+    return () => {
+      window.removeEventListener("resize", windowSize);
+    };
+  }, [screenWidth]);
 
   // Функция  "Ещё"
   const handleClickMoreMovies = () => {
@@ -43,7 +51,7 @@ function MoviesCardList({
   useEffect(() => {
     setMoviesPageDisplay(isMoviesRender.slice(0, moviesPageScreen));
   }, [isMoviesRender, moviesPageScreen]);
-
+  //debugger;
   return (
     <section className="content__moviesCardList moviesCardList">
       {allMovies.length === 0 ? (
@@ -56,19 +64,24 @@ function MoviesCardList({
                 movie={movie}
                 savedMovies={savedMovies}
                 key={movie.movieId || movie._id || movie.id}
+                handleSaveClick={handleSaveClick}
                 handleClick={handleClick}
               />
             ))}
           </ul>
           <div className="moviesCardList__else">
-            <button
-              className="moviesCardList__button"
-              type="button"
-              title="Ещё"
-              onClick={handleClickMoreMovies}
-            >
-              Ещё
-            </button>
+            {isMoviesRender.length > moviesPageScreen ? (
+              <button
+                className="moviesCardList__button"
+                type="button"
+                title="Ещё"
+                onClick={handleClickMoreMovies}
+              >
+                Ещё
+              </button>
+            ) : (
+              ""
+            )}
           </div>
         </>
       ) : (

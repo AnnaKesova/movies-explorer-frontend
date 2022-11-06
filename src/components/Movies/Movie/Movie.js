@@ -1,12 +1,11 @@
 import "./Movie.css";
-import React, { useState } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
 
-function Movie({ movie, handleClick, savedMovies }) {
+function Movie({ movie, handleClick, savedMovies, handleSaveClick }) {
   const { nameRU, trailerLink, duration, image } = movie || {};
-  const [isSaved, setIsSaved] = useState(movie);
   const { pathname } = useLocation();
-  //const isLiked = savedMovies.some((i) => i.id === movie.id);
+  const isSaved = savedMovies.some((i) => i.id === movie.id);
 
   // Фильм - время
   function setDuration(duration) {
@@ -15,11 +14,18 @@ function Movie({ movie, handleClick, savedMovies }) {
     return `${hours}ч ${minutes}м`;
   }
 
+  function handleClickOn() {
+    handleClick(movie);
+  }
+
   // Обрабокта  клика на иконке
-  const handleClickOnIcon = () => {
-    setIsSaved(!isSaved); // Меняем статус  фильма
-    handleClick(movie, isSaved);
-  };
+  function handleClickOnIcon() {
+    if (isSaved) {
+      handleClick(movie);
+    } else {
+      handleSaveClick(movie);
+    }
+  }
 
   return (
     <>
@@ -29,15 +35,28 @@ function Movie({ movie, handleClick, savedMovies }) {
             <p className="moviesCardList__name">{nameRU}</p>
             <p className="moviesCardList__time">{setDuration(duration)}</p>
           </div>
-          <button
-            type="button"
-            className={`moviesCardList__save ${pathname === "/saved-movies"} ${
-              isSaved ? "moviesCardList__save_active" : ""
-            }`}
-            onClick={handleClickOnIcon}
-          >
-            {" "}
-          </button>
+
+          {pathname === "/saved-movies" && (
+            <button
+              type="button"
+              onClick={handleClickOn}
+              className={
+                !isSaved
+                  ? "moviesCardList__save-close "
+                  : "moviesCardList__save-close "
+              }
+            ></button>
+          )}
+
+          {pathname === "/movies" && (
+            <button
+              type="button"
+              className={
+                isSaved ? "moviesCardList__save_active" : "moviesCardList__save"
+              }
+              onClick={handleClickOnIcon}
+            ></button>
+          )}
         </div>
         <a
           className="moviesCardList__link"

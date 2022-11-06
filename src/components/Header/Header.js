@@ -1,32 +1,24 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./Header.css";
 import logo from "../../images/logo.svg";
+import HeaderMain from "./HeaderMain/HeaderMain";
+import HeaderMovies from "./HeaderMovies/HeaderMovies";
 
-function Header() {
+function Header({ loggedIn }) {
+  const { pathname } = useLocation();
   return (
-    <header className="page__header header">
-      <div className="header__content">
-        <Link className="header__link" to="/">
-          <img src={logo} className="header__logo" alt="logo" />
-        </Link>
-        <nav className="header__menu menu">
-          <Link
-            className="menu__route menu__route_border_none"
-            to="/signup"
-            title="Регистрация"
-          >
-            Регистрация
+    <>
+      <header
+        className={`page__header ${pathname === "/" ? "header" : "headerm"} `}
+      >
+        <div className="header__content">
+          <Link className="header__link" to="/">
+            <img src={logo} className="header__logo" alt="logo" />
           </Link>
-          <Link
-            className="menu__route menu__route_border_yes"
-            to="/signin"
-            title="Войти"
-          >
-            Войти
-          </Link>
-        </nav>
-      </div>
-    </header>
+          {loggedIn ? <HeaderMovies /> : <HeaderMain />}
+        </div>
+      </header>
+    </>
   );
 }
 
