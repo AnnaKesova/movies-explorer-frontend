@@ -15,6 +15,7 @@ function MoviesCardList({
   isMoviesRender,
   savedMovies,
   handleClick,
+  message
 }) {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [moviesPageDisplay, setMoviesPageDisplay] = useState(isMoviesRender);

@@ -9,7 +9,7 @@ const SearchForm = ({
 }) => {
   
   const [isText, setIsText] = useState(isWords);
-  const [isCheckbox, setCheckbox] = useState(false);
+  const [isCheckbox, setCheckbox] = useState(isCheckBoxMovie);
   const onCheckboxToggle = () => setCheckbox(!isCheckbox);
 
   // Обработка сабмита формы

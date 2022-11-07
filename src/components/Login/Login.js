@@ -3,13 +3,9 @@ import React, {useEffect} from "react";
 import "./Login.css";
 import { useFormWithValidation } from "../../utils/validate";
 
-function Login({ onLogin, setLoginError, loginError }) {
+function Login({ onLogin}) {
   const { values, errors, handleChange, isValid } =
     useFormWithValidation();
-
-    useEffect(() => {
-      setLoginError("")
-  }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -36,6 +32,7 @@ function Login({ onLogin, setLoginError, loginError }) {
               maxLength="40"
               required
               id="email"
+              pattern="^\w+([\.-]?\w+)*@\w*(\.\w{2,})+$"
               onChange={handleChange}
             ></input>
             <span className="form-registrer__error">{errors.email}</span>
@@ -55,7 +52,6 @@ function Login({ onLogin, setLoginError, loginError }) {
             <span className="form-registrer__error">{errors.password}</span>
           </div>
           <div className="form-register__navigation">
-          <span className="form-registrer__error">{loginError}</span>
             <button
               type="submit"
               className={
