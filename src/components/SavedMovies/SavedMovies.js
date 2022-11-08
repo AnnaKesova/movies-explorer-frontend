@@ -8,7 +8,7 @@ function SavedMovies({ savedMovies, handleDeleteMovie }) {
   const changeBoxSaved = () => {
     const checkBoxSaved = JSON.parse(localStorage.getItem("checkBoxSaved"))
     //debugger
-    return checkBoxSaved;
+    return checkBoxSaved ? checkBoxSaved : false;
   };
 
   const savedWords = () => {

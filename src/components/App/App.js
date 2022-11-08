@@ -141,6 +141,7 @@ function App() {
     setLoggedIn(false);
     setCurrentUser({});
     setSavedMovies([]);
+    setAllMovies([]);
     navigate("/");
   }
 

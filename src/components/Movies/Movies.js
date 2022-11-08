@@ -17,7 +17,7 @@ function Movies({
   const changeCheckBox = () => {
     const checkBoxMovie = JSON.parse(localStorage.getItem("checkBox"))
     //debugger
-    return checkBoxMovie;
+    return checkBoxMovie ? checkBoxMovie : false;
   };
 
   const extraIsWords = () => {
@@ -68,7 +68,7 @@ function Movies({
       localStorage.setItem("words", text);
       localStorage.setItem("filter", JSON.stringify(moviesFiltered));
       setAllMovies(moviesFiltered); 
-  
+       
     }
   };
 
@@ -78,7 +78,8 @@ function Movies({
       const currentMovie = JSON.parse(localStorage.getItem("filter"));
       setAllMovies(currentMovie);
     } else {
-      setAllMovies([]);
+     // setAllMovies([]);
+      setisMoviesRender([]);
     }
   }, []);
 
