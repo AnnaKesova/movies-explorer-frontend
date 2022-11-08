@@ -4,12 +4,9 @@ import "../Register/Register.css";
 import { useFormWithValidation } from "../../utils/validate";
 import { useEffect } from "react";
 
-function Register({ onRegister, registerError, setRegisterError }) {
+function Register({ onRegister }) {
   const { values, errors, handleChange, isValid } = useFormWithValidation();
 
-  useEffect(() => {
-    setRegisterError("")
-}, []);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -51,6 +48,7 @@ function Register({ onRegister, registerError, setRegisterError }) {
               maxLength="30"
               required
               id="email"
+              pattern="^\w+([\.-]?\w+)*@\w*(\.\w{2,})+$"
               onChange={handleChange}
             ></input>
             <span className="form-registrer__error">{errors.email}</span>
@@ -70,7 +68,6 @@ function Register({ onRegister, registerError, setRegisterError }) {
             <span className="form-registrer__error">{errors.password}</span>
           </div>
           <div className="form-register__navigation">
-          <span className="form-registrer__error">{registerError ? registerError : ""}</span>
             <button
               type="submit"
               className={

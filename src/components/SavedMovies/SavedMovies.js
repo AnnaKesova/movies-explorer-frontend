@@ -4,10 +4,24 @@ import SearchForm from "../Movies/SearchForm/SearchForm";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 
 function SavedMovies({ savedMovies, handleDeleteMovie }) {
-  const [isWords, setIsWords] = useState("");
-  const [isMoviesRender, setisMoviesRend] = useState(savedMovies);
-  const [isCheckBoxMovie, setIsCheckBoxMovie] = useState(false);
 
+  const changeBoxSaved = () => {
+    const checkBoxSaved = JSON.parse(localStorage.getItem("checkBoxSaved"))
+    //debugger
+    return checkBoxSaved ? checkBoxSaved : false;
+  };
+
+  const savedWords = () => {
+    const searchIsWords = localStorage.getItem("savedWords");
+    return searchIsWords ;
+  };
+
+  const [isWords, setIsWords] = useState(savedWords());
+  const [isMoviesRender, setisMoviesRend] = useState(savedMovies);
+  const [isCheckBoxMovie, setIsCheckBoxMovie] = useState(changeBoxSaved());
+
+
+  
   const filterMovies = (movies, isWords, isCheckBoxMovie) => {
     let filteredMovies = movies;
 
@@ -26,18 +40,21 @@ function SavedMovies({ savedMovies, handleDeleteMovie }) {
   // Обработка запроса на поиск фильма
   const handleMoviesSearch = (data, isCheckBoxMovie) => {
     setIsWords(data);
+    localStorage.setItem("savedWords", data);
     const moviesFiltered = filterMovies(savedMovies, data, isCheckBoxMovie);
     setisMoviesRend(moviesFiltered);
   };
-
+  useEffect(() => {
+    localStorage.setItem("checkBoxSaved", isCheckBoxMovie);
+  }, [isCheckBoxMovie]);
   useEffect(() => {
     const moviesFiltered = filterMovies(savedMovies, isWords, isCheckBoxMovie);
     setisMoviesRend(moviesFiltered);
   }, [savedMovies, isWords, isCheckBoxMovie]);
 
-  useEffect(() => {
-    setisMoviesRend(savedMovies);
-  }, [savedMovies]);
+
+
+ 
 
   return (
     <main className="page__content content savedContent">

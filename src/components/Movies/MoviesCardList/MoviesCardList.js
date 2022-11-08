@@ -54,9 +54,10 @@ function MoviesCardList({
   //debugger;
   return (
     <section className="content__moviesCardList moviesCardList">
-      {allMovies.length === 0 ? (
+      { 
+      allMovies.length === 0  &&  localStorage.getItem("filter") === null  ? (
         <div></div>
-      ) : isMoviesRender.length !== 0 ? (
+      ) : isMoviesRender.length !== 0  ? (
         <>
           <ul className="moviesCardList__list">
             {moviesPageDisplay.map((movie) => (

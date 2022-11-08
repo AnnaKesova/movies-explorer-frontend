@@ -14,6 +14,7 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import NotFound from "../404/404";
 import apiMain from "../../utils/MainApi";
+import CloseRoutes from "../../utils/CloseRoutes";
 
 function App() {
   // получение API
@@ -27,10 +28,6 @@ function App() {
   const [allMovies, setAllMovies] = useState([]); // состояние, которое использую потом для получения фильмов.
   const location = useLocation().pathname;
   const [savedMovies, setSavedMovies] = useState([]);
-
-  //ошибки логина и регистрации
-  const [loginError, setLoginError] = useState("");
-  const [registerError, setRegisterError] = useState("");
 
   // отрисовывание, сохранённых фильмов
   useEffect(() => {
@@ -59,7 +56,6 @@ function App() {
         })
         .catch((err) => {
           console.log(err);
-          logOutErrAuthorization(err);
         });
     }
   }
@@ -72,9 +68,7 @@ function App() {
         const arr = savedMovies.filter((m) => m.id !== movies.movieId);
         setSavedMovies(arr);
       })
-      .catch((err) => {
-        logOutErrAuthorization(err);
-      });
+      .catch((err) => {});
   }
 
   // хранилище, проверка токена
@@ -113,7 +107,7 @@ function App() {
         }
       })
       .catch((err) => {
-        setRegisterError("При авторизации пользователя произошла ошибка");
+        console("При авторизации пользователя произошла ошибка");
       });
   }
 
@@ -127,7 +121,11 @@ function App() {
         navigate("/movies");
       })
       .catch((err) => {
-        setLoginError("При авторизации пользователя произошла ошибка");
+        if (err === "Ошибка: 401") {
+          logOutErrAuthorization("Неправильный логин или пароль");
+        } else {
+          console("При авторизации пользователя произошла ошибка");
+        }
       });
   }
 
@@ -143,8 +141,7 @@ function App() {
     setLoggedIn(false);
     setCurrentUser({});
     setSavedMovies([]);
-    setLoginError("");
-    setRegisterError("");
+    setAllMovies([]);
     navigate("/");
   }
 
@@ -169,8 +166,6 @@ function App() {
     setAllMovies([]);
     setSavedMovies([]);
     setCurrentUser({});
-    setLoginError("");
-    setRegisterError("");
     navigate("/");
   };
 
@@ -189,6 +184,7 @@ function App() {
                 </>
               }
             />
+            <Route path='/*' element={<NotFound />} />
             <Route
               path="/movies"
               element={
@@ -236,34 +232,26 @@ function App() {
                 </>
               }
             />
-
-            <Route
-              path="/signup"
-              element={
-                <>
-                  <HeaderRegister />
-                  <Register
-                    onRegister={handleRegister}
-                    registerError={registerError}
-                    setRegisterError={setRegisterError}
-                  ></Register>
-                </>
-              }
-            />
-            <Route
-              path="/signin"
-              element={
-                <>
-                  <HeaderRegister />
-                  <Login
-                    onLogin={handleLogin}
-                    loginError={loginError}
-                    setLoginError={setLoginError}
-                  ></Login>
-                </>
-              }
-            />
-            <Route path="*" element={<NotFound />} />
+            <Route element={<CloseRoutes loggedIn={loggedIn} />}>
+              <Route
+                path="/signup"
+                element={
+                  <>
+                    <HeaderRegister />
+                    <Register onRegister={handleRegister}></Register>
+                  </>
+                }
+              />
+              <Route
+                path="/signin"
+                element={
+                  <>
+                    <HeaderRegister />
+                    <Login onLogin={handleLogin}></Login>
+                  </>
+                }
+              />
+            </Route>
           </Routes>
         </div>
       </div>
