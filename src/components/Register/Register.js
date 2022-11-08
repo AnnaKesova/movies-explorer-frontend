@@ -33,6 +33,7 @@ function Register({ onRegister }) {
               maxLength="30"
               type="name"
               name="name"
+              pattern="[A-Za-zА-Яа-яЁё\s-]+"
               value={values.name || ""}
               onChange={handleChange}
             ></input>
