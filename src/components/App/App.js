@@ -109,7 +109,11 @@ function App() {
         }
       })
       .catch((err) => {
-        console("При авторизации пользователя произошла ошибка");
+        if (err === "Ошибка: 401") {
+          logOutErrAuthorization("Неправильный логин или пароль");
+        } else {
+          console("При авторизации пользователя произошла ошибка");
+        }
       });
   }
 
@@ -186,7 +190,7 @@ function App() {
                 </>
               }
             />
-            <Route path='/*' element={<NotFound />} />
+            <Route path="/*" element={<NotFound />} />
             <Route
               path="/movies"
               element={
