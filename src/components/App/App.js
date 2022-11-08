@@ -68,7 +68,9 @@ function App() {
         const arr = savedMovies.filter((m) => m.id !== movies.movieId);
         setSavedMovies(arr);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   // хранилище, проверка токена

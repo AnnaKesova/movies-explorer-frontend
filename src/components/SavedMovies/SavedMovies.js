@@ -4,24 +4,20 @@ import SearchForm from "../Movies/SearchForm/SearchForm";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 
 function SavedMovies({ savedMovies, handleDeleteMovie }) {
-
   const changeBoxSaved = () => {
-    const checkBoxSaved = JSON.parse(localStorage.getItem("checkBoxSaved"))
-    //debugger
+    const checkBoxSaved = JSON.parse(localStorage.getItem("checkBoxSaved"));
     return checkBoxSaved ? checkBoxSaved : false;
   };
 
   const savedWords = () => {
     const searchIsWords = localStorage.getItem("savedWords");
-    return searchIsWords ;
+    return searchIsWords;
   };
 
   const [isWords, setIsWords] = useState(savedWords());
   const [isMoviesRender, setisMoviesRend] = useState(savedMovies);
   const [isCheckBoxMovie, setIsCheckBoxMovie] = useState(changeBoxSaved());
 
-
-  
   const filterMovies = (movies, isWords, isCheckBoxMovie) => {
     let filteredMovies = movies;
 
@@ -51,10 +47,6 @@ function SavedMovies({ savedMovies, handleDeleteMovie }) {
     const moviesFiltered = filterMovies(savedMovies, isWords, isCheckBoxMovie);
     setisMoviesRend(moviesFiltered);
   }, [savedMovies, isWords, isCheckBoxMovie]);
-
-
-
- 
 
   return (
     <main className="page__content content savedContent">

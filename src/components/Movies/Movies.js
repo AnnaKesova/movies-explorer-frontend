@@ -11,11 +11,11 @@ function Movies({
   setAllMovies,
   handleSaveMovie,
   savedMovies,
-  handleDeleteMovie
+  handleDeleteMovie,
 }) {
   const [isMoviesRender, setisMoviesRender] = useState([]);
   const changeCheckBox = () => {
-    const checkBoxMovie = JSON.parse(localStorage.getItem("checkBox"))
+    const checkBoxMovie = JSON.parse(localStorage.getItem("checkBox"));
     //debugger
     return checkBoxMovie ? checkBoxMovie : false;
   };
@@ -28,7 +28,6 @@ function Movies({
   const [IsPreloader, setIsPreloader] = useState(false);
   const [isWords, setIsWords] = useState(extraIsWords());
   const [isCheckBoxMovie, setIsCheckBoxMovie] = useState(changeCheckBox());
-  const [message, setMessage] = useState("")
 
   const filterMovies = (movies, isWords, isCheckBoxMovie) => {
     let filteredMovies = movies;
@@ -48,7 +47,6 @@ function Movies({
 
   // Обработка запроса на поиск фильма
   const handleMoviesSearch = (text) => {
-
     if (localStorage.getItem("allMovies") === null) {
       setIsPreloader(true);
 
@@ -67,8 +65,7 @@ function Movies({
       setIsWords(text);
       localStorage.setItem("words", text);
       localStorage.setItem("filter", JSON.stringify(moviesFiltered));
-      setAllMovies(moviesFiltered); 
-       
+      setAllMovies(moviesFiltered);
     }
   };
 
@@ -78,7 +75,7 @@ function Movies({
       const currentMovie = JSON.parse(localStorage.getItem("filter"));
       setAllMovies(currentMovie);
     } else {
-     // setAllMovies([]);
+      // setAllMovies([]);
       setisMoviesRender([]);
     }
   }, []);
@@ -87,7 +84,7 @@ function Movies({
   useEffect(() => {
     localStorage.setItem("checkBox", isCheckBoxMovie);
   }, [isCheckBoxMovie]);
-  
+
   useEffect(() => {
     const moviesFiltered = filterMovies(allMovies, isWords, isCheckBoxMovie);
     setisMoviesRender(moviesFiltered);
@@ -116,7 +113,6 @@ function Movies({
           handleSaveClick={handleClickSaveIcon}
           handleClick={handleDeleteMovie}
           savedMovies={savedMovies}
-          message = {message}
         ></MoviesCardList>
       )}
     </main>
