@@ -54,6 +54,7 @@ function Login({ onLogin}) {
           <div className="form-register__navigation">
             <button
               type="submit"
+              disabled={!isValid}
               className={
                 isValid
                   ? "form-registrer__button"
