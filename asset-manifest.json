@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/movies-explorer-frontend/static/css/main.27152e74.css",
-    "main.js": "/movies-explorer-frontend/static/js/main.8ebfde99.js",
+    "main.js": "/movies-explorer-frontend/static/js/main.73f1c6d5.js",
     "static/media/miPhoto.jpg": "/movies-explorer-frontend/static/media/miPhoto.3403a7acb2987beb965a.jpg",
     "static/media/text__COLOR_landing-logo.svg": "/movies-explorer-frontend/static/media/text__COLOR_landing-logo.b2a32c1af5fa0d9cc07122061c99820a.svg",
     "static/media/Inter-Black.woff?v=3.19": "/movies-explorer-frontend/static/media/Inter-Black.fd37f7e052bea1018058.woff",
@@ -19,10 +19,10 @@
     "static/media/close.svg": "/movies-explorer-frontend/static/media/close.09da049275af48ed6340.svg",
     "static/media/стрелка.svg": "/movies-explorer-frontend/static/media/стрелка.093d837f03fdca8fb1466efb112a96ac.svg",
     "main.27152e74.css.map": "/movies-explorer-frontend/static/css/main.27152e74.css.map",
-    "main.8ebfde99.js.map": "/movies-explorer-frontend/static/js/main.8ebfde99.js.map"
+    "main.73f1c6d5.js.map": "/movies-explorer-frontend/static/js/main.73f1c6d5.js.map"
   },
   "entrypoints": [
     "static/css/main.27152e74.css",
-    "static/js/main.8ebfde99.js"
+    "static/js/main.73f1c6d5.js"
   ]
 }
