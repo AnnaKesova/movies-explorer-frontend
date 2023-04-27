@@ -1,6 +1,6 @@
 import "./AboutMe.css";
 
-import mypfoto from "../../../images/myphoto.jpg";
+import mypfoto from "../../../images/miPhoto.jpg";
 import arrow from "../../../images/стрелка.svg";
 
 function AboutMe() {
@@ -48,7 +48,7 @@ function AboutMe() {
             <a
               className="aboutMe__site"
               target="blank"
-              href="https://annakesova.github.io/mesto/"
+              href="https://annakesova.github.io/Stepik-diploma/"
             >
               <h2 className="aboutMe__name-site">Адаптивный сайт</h2>
               <img src={arrow} className="aboutMe__arrow" alt="arrow"></img>
@@ -58,7 +58,7 @@ function AboutMe() {
             <a
               className="aboutMe__site"
               target="blank"
-              href="https://anna.mesto.students.nomoredomains.sbs/"
+              href="https://annakesova.github.io/mesto/"
             >
               <h2 className="aboutMe__name-site">Одностраничное приложение</h2>
               <img src={arrow} className="aboutMe__arrow" alt="arrow"></img>
