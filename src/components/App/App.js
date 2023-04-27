@@ -190,7 +190,7 @@ function App() {
                 </>
               }
             />
-            <Route path="/*" element={<NotFound />} />
+            {/* <Route path="/*" element={<NotFound />} /> */}
             <Route
               path="/movies"
               element={
